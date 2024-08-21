@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<!-- saved from url=(0058)file:///C:/Users/Charan%20Kondaveeti/Downloads/index.html# -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Style Preview</title>
+    <link href="./cssStyles_files/css2" rel="stylesheet">
+    <style>
+      /* Your provided CSS */
+      @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+      .ff-poppins {
+        font-family: "Poppins", sans-serif;
+      }
+      .ff-rubik {
+        font-family: "Rubik", sans-serif;
+      }
+      .ff-nunito {
+        font-family: "Nunito", sans-serif;
+      }
+      .ff-Josefin {
+        font-family: "Josefin Sans", sans-serif;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: inherit;
+      }
+
+      html {
+        box-sizing: border-box;
+        font-size: 62.5%;
+      }
+
+      body {
+        font-family: "Open Sans", sans-serif;
+        font-weight: 400;
+        line-height: 1.6;
+        color: var(--color-grey-dark-2);
+        min-height: 100vh;
+        padding: 2rem;
+      }
+
+      :root {
+        --color-primary: rgb(0, 165, 137);
+        --color-primary-dark: #31407f;
+        --active-click-color: #3b4a84;
+        --color-primary-light: #7e8dcb;
+        --btn-color: #7687cf;
+        --icon-color: #9fafed;
+        --border-color: #9cb5e1;
+        --card-bg-color: #f0f3fc;
+        --icon-active-color: #fbfdff;
+        --shadow-dark: 0 2rem 6rem rgba(0, 0, 0, 0.3);
+        --shadow-light: 0 2rem 5rem rgba(0, 0, 0, 0.06);
+        --line: 1px solid var(--color-grey-light-2);
+      }
+
+      .container {
+        max-width: 120rem;
+        padding: 0 3.2rem;
+        margin: 0 auto;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin-bottom: 1.6rem;
+      }
+
+      .section {
+        margin-bottom: 4rem;
+      }
+
+      .font-size-sample {
+        padding: 1rem;
+        margin-bottom: 1rem;
+        display: block;
+        border: 1px solid #ccc;
+        margin-right: 1rem;
+      }
+
+      .color-sample {
+        width: 200px;
+        height: 50px;
+        border-radius: 4px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+        font-size: 1.4rem;
+      }
+
+      .shadow-sample {
+        padding: 1rem;
+        margin-bottom: 1rem;
+        display: inline-block;
+        /* border: 1px solid black; */
+        margin-right: 1rem;
+        width: 15rem;
+        height: 15rem;
+        background-color: var(--card-bg-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .shadow-section .shadow-sample:first-child {
+        /* margin-right: 10rem; */
+      }
+
+      .class-label {
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+        display: block;
+        font-weight: 600;
+      }
+
+      .br-sml,
+      .br-def,
+      .br-md {
+        /* gap: 10rem; */
+        width: 20rem;
+        height: 15rem;
+        margin-right: 1rem;
+        display: inline-block;
+        background-color: var(--color-primary-dark);
+        color: #f4f4f4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .br-sml {
+        border-radius: 4px;
+      }
+
+      .br-def {
+        border-radius: 8px;
+      }
+
+      .br-md {
+        border-radius: 12px;
+      }
+
+      /* Font sizes (rem) */
+      .fs-1 {
+        font-size: 1rem;
+      }
+
+      .fs-2 {
+        font-size: 1.2rem;
+      }
+
+      .fs-3 {
+        font-size: 1.4rem;
+      }
+
+      .fs-4 {
+        font-size: 1.6rem;
+      }
+
+      .fs-5 {
+        font-size: 1.8rem;
+      }
+
+      .fs-6 {
+        font-size: 2rem;
+      }
+
+      .fs-7 {
+        font-size: 2.4rem;
+      }
+
+      .fs-8 {
+        font-size: 3rem;
+      }
+
+      .fs-9 {
+        font-size: 3.6rem;
+      }
+
+      .fs-10 {
+        font-size: 4.4rem;
+      }
+
+      .fs-11 {
+        font-size: 5.2rem;
+      }
+
+      .fs-12 {
+        font-size: 6.2rem;
+      }
+
+      .fs-13 {
+        font-size: 7.4rem;
+      }
+
+      .fs-14 {
+        font-size: 8.6rem;
+      }
+
+      .fs-16 {
+        font-size: 9.6rem;
+      }
+
+      /* Font weights */
+      .fw-def {
+        font-weight: 400;
+      }
+
+      .fw-med {
+        font-weight: 500;
+      }
+
+      .fw-semibold {
+        font-weight: 600;
+      }
+
+      .fw-bold {
+        font-weight: 700;
+      }
+
+      /* Line heights */
+      .lh-def {
+        line-height: 1;
+      }
+
+      .lh-sml {
+        line-height: 1.05;
+      }
+
+      .lh-med {
+        line-height: 1.2;
+      }
+
+      .lh-paraDef {
+        line-height: 1.6;
+      }
+
+      .lh-large {
+        line-height: 1.8;
+      }
+
+      /* Letter Spacing */
+      .ltr-spc-1 {
+        letter-spacing: 0.5px;
+      }
+
+      .ltr-spc-2 {
+        letter-spacing: 0.75px;
+      }
+
+      /* Box shadow */
+      .box-shadow {
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      }
+
+      /* Border Radius */
+      .br-sml {
+        border-radius: 4px;
+      }
+
+      .br-def {
+        border-radius: 9px;
+      }
+
+      .br-md {
+        border-radius: 11px;
+      }
+
+      /* Container */
+      .container {
+        max-width: 120rem;
+        padding: 2rem 3.2rem;
+        margin: 0 auto;
+        background-color: white;
+        border-radius: 9px;
+        box-shadow: var(--shadow-light);
+      }
+
+      /* Headings */
+      .heading-primary,
+      .heading-secondary,
+      .heading-tertiary {
+        font-weight: 700;
+        color: #333;
+        letter-spacing: -0.5px;
+        text-align: center;
+      }
+
+      .heading-primary {
+        font-size: 5.2rem;
+        line-height: 1.05;
+        margin-bottom: 3.2rem;
+      }
+
+      .heading-secondary {
+        font-size: 4.4rem;
+        line-height: 1.2;
+        margin-bottom: 2.4rem;
+      }
+
+      .heading-tertiary {
+        font-size: 3rem;
+        line-height: 1.2;
+        margin-bottom: 2rem;
+      }
+
+      .subheading {
+        display: block;
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: #cf711f;
+        text-transform: uppercase;
+        margin-bottom: 1.6rem;
+        letter-spacing: 0.75px;
+        text-align: center;
+      }
+
+      /* Buttons */
+      .btn,
+      .btn:link,
+      .btn:visited {
+        display: inline-block;
+        text-decoration: none;
+        font-size: 2rem;
+        font-weight: 600;
+        padding: 1.6rem 3.2rem;
+        border-radius: 9px;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+        transition: all 0.3s;
+        margin: 1rem auto;
+        display: block;
+        width: max-content;
+      }
+
+      .btn--full {
+        background-color: #7687cf;
+        color: #fff;
+      }
+
+      .btn--full:hover,
+      .btn--full:active {
+        background-color: #7687cf;
+      }
+
+      .btn--outline {
+        background-color: #fff;
+        color: #555;
+        border: 2px solid rgba(160, 166, 192, 0.376);
+      }
+
+      .btn--outline:hover,
+      .btn--outline:active {
+        background-color: #fdf2e9;
+      }
+
+      .link:link,
+      .link:visited {
+        display: inline-block;
+        color: #7687cf;
+        text-decoration: none;
+        border-bottom: 1px solid currentColor;
+        padding-bottom: 2px;
+        transition: all 0.3s;
+      }
+
+      .link:hover,
+      .link:active {
+        color: #7687cf;
+        border-bottom: 1px solid transparent;
+      }
+
+      .list {
+        list-style: none;
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        margin-top: 1rem;
+      }
+
+      .list-item {
+        font-size: 1.8rem;
+        display: flex;
+        align-items: center;
+        gap: 1.6rem;
+        line-height: 1.2;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #fdf2e9;
+        height: 9.6rem;
+        padding: 0 4.8rem;
+        border-radius: 9px;
+        box-shadow: var(--shadow-light);
+        margin-bottom: 2rem;
+      }
+
+      .logo {
+        height: 3.25rem;
+        margin-left: 2rem;
+      }
+
+      .paragraph {
+        margin-bottom: 2.8rem;
+      }
+
+      .shadow-section {
+        display: flex;
+        gap: 10rem;
+        justify-content: flex-start;
+      }
+
+      .section-borderadius {
+        gap: 10rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+      }
+
+      /* Flexbox Section */
+      .flexbox-section {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .flexbox-item {
+        color: #f4f4f4;
+        background-color: #3b4a84;
+        padding: 1rem;
+        flex: 1 1 calc(33% - 2rem);
+        box-shadow: var(--shadow-light);
+        border-radius: 4px;
+        text-align: center;
+      }
+
+      /* Grid Section */
+      .grid-section {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      }
+
+      .grid-item {
+        color: #f4f4f4;
+
+        background-color: #3b4a84;
+        padding: 1rem;
+        box-shadow: var(--shadow-light);
+        border-radius: 4px;
+        text-align: center;
+      }
+
+      /* Margins Section */
+      .margins-section .margin-sample {
+        color: #f4f4f4;
+
+        background-color: #3b4a84;
+        padding: 1rem;
+        border-radius: 4px;
+        box-shadow: var(--shadow-light);
+        margin-bottom: 2rem;
+      }
+
+      .margins-section .margin-sm {
+        margin: 0.5rem;
+      }
+      .margins-section .margin-md {
+        margin: 1rem;
+      }
+      .margins-section .margin-lg {
+        margin: 2rem;
+      }
+
+      .section-icons {
+        width: 40rem;
+        height: 10rem;
+        background-color: #3b4a84;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header Section -->
+    <header class="header">
+      <img src="./cssStyles_files/100x32" alt="Logo" class="logo">
+      <nav>
+        <ul class="list">
+          <li class="list-item"><a href="file:///C:/Users/Charan%20Kondaveeti/Downloads/index.html#" class="link">Home</a></li>
+          <li class="list-item"><a href="file:///C:/Users/Charan%20Kondaveeti/Downloads/index.html#" class="link">About</a></li>
+          <li class="list-item"><a href="file:///C:/Users/Charan%20Kondaveeti/Downloads/index.html#" class="link">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+      <!-- headings -->
+      <h1 class="heading-primary">Heading Primary</h1>
+      <h2 class="heading-secondary">Heading Secondary</h2>
+      <h3 class="heading-tertiary">Heading Tertiary</h3>
+
+      <!-- font family -->
+      <p class="ff-poppins fw-semibold fs-6 paragraph">
+        Poppins =&gt; This is a paragraph using the
+        <i style="color: #31407f">Poppins font.</i> It is a modern and clean
+        sans-serif typeface with a touch of elegance.
+      </p>
+
+      <p class="ff-rubik fw-semibold fs-6 paragraph">
+        Rubik =&gt; This paragraph is styled with the Rubik font. Known for its
+        rounded edges and friendly appearance, Rubik is great for casual,
+        easy-to-read text.
+      </p>
+
+      <p class="ff-nunito fw-semibold fs-6 paragraph">
+        Nunito =&gt; Here we have the Nunito font applied. This typeface offers a
+        balanced, rounded design, making it a popular choice for both body text
+        and headings.
+      </p>
+
+      <p class="ff-Josefin fw-semibold fs-6 paragraph">
+        Josefin =&gt; This final paragraph uses the Josefin Sans font. With its
+        geometric style and elegant look, Josefin Sans stands out in both
+        digital and print media.
+      </p>
+
+      <!-- line heights -->
+      <p class="fs-4 lh-def">This is a sample paragraph with 1 line height.</p>
+      <p class="fs-4 lh-sml">
+        This is a sample paragraph with 1.05 line height.
+      </p>
+      <p class="fs-4 lh-med">
+        This is a sample paragraph with 1.2 line height.
+      </p>
+      <p class="fs-4 lh-paraDef">
+        This is a sample paragraph with 1.6 line height.
+      </p>
+      <p class="fs-4 lh-large">
+        This is a sample paragraph with 1.8 line height.
+      </p>
+
+      <button class="btn btn--full">Full Button</button>
+      <button class="btn btn--outline">Outline Button</button>
+    </main>
+    <div class="section">
+      <h2>Font Sizes</h2>
+      <div class="font-size-sample" style="font-size: 1.2rem">
+        <span class="class-label">.fs-1</span>Lorem, ipsum dolor sit amet
+        consectetur adipisicing elit. Deserunt, numquam! - 1.2rem
+      </div>
+      <div class="font-size-sample" style="font-size: 1.4rem">
+        <span class="class-label">.fs-2</span>Lorem ipsum dolor sit amet
+        consectetur adipisicing elit. Molestiae, ducimus? - 1.4rem
+      </div>
+      <div class="font-size-sample" style="font-size: 1.6rem">
+        <span class="class-label">.fs-3</span>Lorem ipsum dolor sit amet
+        consectetur, adipisicing elit. At, minus. - 1.6rem
+      </div>
+      <div class="font-size-sample" style="font-size: 1.8rem">
+        <span class="class-label">.fs-4</span>Lorem ipsum dolor sit amet
+        consectetur, adipisicing elit. Veniam, beatae. - 1.8rem
+      </div>
+      <div class="font-size-sample" style="font-size: 2rem">
+        <span class="class-label">.fs-5</span>Lorem ipsum dolor sit amet
+        consectetur, adipisicing elit. Consectetur, dolorum. - 2rem
+      </div>
+      <div class="font-size-sample" style="font-size: 2.2rem">
+        <span class="class-label">.fs-6</span>Lorem ipsum dolor sit amet
+        consectetur adipisicing elit. Perspiciatis, illo? - 2.2rem
+      </div>
+      <div class="font-size-sample" style="font-size: 2.4rem">
+        <span class="class-label">.fs-7</span>Lorem ipsum dolor sit amet
+        consectetur adipisicing elit. Omnis, asperiores? - 2.4rem
+      </div>
+      <div class="font-size-sample" style="font-size: 2.6rem">
+        <span class="class-label">.fs-8</span>Lorem ipsum dolor sit amet
+        consectetur adipisicing elit. Quo, iste? - 2.6rem
+      </div>
+      <div class="font-size-sample" style="font-size: 2.8rem">
+        <span class="class-label">.fs-9</span>Lorem ipsum dolor sit amet,
+        consectetur adipisicing elit. Voluptate, qui! - 2.8rem
+      </div>
+      <div class="font-size-sample" style="font-size: 3rem">
+        <span class="class-label">.fs-10</span>Lorem, ipsum dolor sit amet
+        consectetur adipisicing elit. Ipsum, inventore! - 3rem
+      </div>
+    </div>
+
+    <h2>Colors</h2>
+    <div class="section">
+      <div class="color-sample" style="background-color: var(--color-primary)">
+        <span class="class-label">--color-primary</span>
+      </div>
+      <div class="color-sample" style="background-color: var(--color-primary-dark)">
+        <span class="class-label">--color-primary-dark</span>
+      </div>
+      <div class="color-sample" style="background-color: var(--color-primary-light); color: #000">
+        <span class="class-label">--color-primary-light</span>
+      </div>
+      <div class="color-sample" style="background-color: var(--btn-color)">
+        <span class="class-label">--btn-color</span>
+      </div>
+      <div class="color-sample" style="background-color: var(--icon-color)">
+        <span class="class-label">--icon-color</span>
+      </div>
+    </div>
+
+    <h2>Shadows</h2>
+    <div class="section shadow-section">
+      <div class="shadow-sample" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px">
+        <span class="class-label">--shadow-dark</span>
+      </div>
+      <div class="shadow-sample" style="box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px">
+        <span class="class-label">--shadow-light</span>
+      </div>
+      <div class="shadow-sample" style="
+          box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+            rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+        ">
+        <span class="class-label">--shadow-light</span>
+      </div>
+
+      <a class="fs-8" href="https://getcssscan.com/css-box-shadow-examples">For more css shadows -
+      </a>
+    </div>
+
+    <h2>Border Radius</h2>
+    <div class="section section-borderadius">
+      <div class="br-sml"><span class="class-label">.br-sml</span></div>
+      <div class="br-def"><span class="class-label">.br-def</span></div>
+      <div class="br-md"><span class="class-label">.br-md</span></div>
+    </div>
+    <div class="section">
+      <h2>Button Styles</h2>
+
+      <div class="button-sample">
+        <span class="class-label">.btn--full</span>
+        <a href="file:///C:/Users/Charan%20Kondaveeti/Downloads/index.html#" class="btn btn--full">Full Button</a>
+      </div>
+
+      <div class="button-sample">
+        <span class="class-label">.btn--outline</span>
+        <a href="file:///C:/Users/Charan%20Kondaveeti/Downloads/index.html#" class="btn btn--outline">Outline Button</a>
+      </div>
+
+      <div class="button-sample">
+        <span class="class-label">.btn--form</span>
+        <a href="file:///C:/Users/Charan%20Kondaveeti/Downloads/index.html#" class="btn btn--form">Form Button</a>
+      </div>
+    </div>
+    <div class="section">
+      <h2>Link Styles</h2>
+
+      <div class="link-sample">
+        <span class="class-label">.link</span>
+        <a href="file:///C:/Users/Charan%20Kondaveeti/Downloads/index.html#" class="link">Sample Link</a>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="ff-poppins fs-4">Flexbox</h2>
+      <div class="flexbox-section">
+        <div class="flexbox-item">Flex Item 1</div>
+        <div class="flexbox-item">Flex Item 2</div>
+        <div class="flexbox-item">Flex Item 3</div>
+        <div class="flexbox-item">Flex Item 4</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="ff-poppins fs-4">Grid</h2>
+      <div class="grid-section">
+        <div class="grid-item">Grid Item 1</div>
+        <div class="grid-item">Grid Item 2</div>
+        <div class="grid-item">Grid Item 3</div>
+        <div class="grid-item">Grid Item 4</div>
+      </div>
+    </div>
+
+    <div class="section margins-section">
+      <h2 class="ff-poppins fs-4">Margins</h2>
+      <div class="margin-sample margin-sm">
+        <span class="class-label">.margin-sm</span>
+      </div>
+      <div class="margin-sample margin-md">
+        <span class="class-label">.margin-md</span>
+      </div>
+      <div class="margin-sample margin-lg">
+        <span class="class-label">.margin-lg</span>
+      </div>
+    </div>
+
+    <div class="section-icons br-sml"></div>
+  
+
+</body></html>
