@@ -1,7 +1,7 @@
 import React from "react";
 import "../Components/Dashboard.css";
 // import logo from "../assets/logo.jpeg";
-import { useNavigate } from "react-router";
+// import { useNavigate } from "react-router";
 import { NavLink } from "react-router-dom";
 
 import { MdOutlinePayment } from "react-icons/md";
@@ -10,7 +10,7 @@ import { FaHandshake } from "react-icons/fa";
 import { PiNotebookThin } from "react-icons/pi";
 
 const Dashboard = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   return (
     <div className="dashLink-cont">
@@ -24,9 +24,14 @@ const Dashboard = () => {
 
       {/* menu's */}
       <ul className="nav-menus-ul">
-      <li className="dashLink">
+        <li className="dashLink">
           <NavLink exact to="/dashboard" activeClassName="active">
             <MdOutlinePayment size={20} /> Dashboard
+          </NavLink>
+        </li>
+        <li className="dashLink">
+          <NavLink exact to="/customer" activeClassName="active">
+            <MdOutlinePayment size={20} /> Customers
           </NavLink>
         </li>
         <li className="dashLink">

@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Receivable from "./pages/Receivable.jsx";
 import Ledger from "./pages/Ledger.jsx";
 import Vendors from "./pages/Vendors.jsx";
+import Customer from "./pages/Customer.jsx";
 import "./App.css";
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Dashboard />} />
+          <Route path="/customer" element={<Customer />} />
           <Route path="/Payable" element={<Payable />} />
           <Route path="/Receivable" element={<Receivable />} />
           <Route path="/ledger" element={<Ledger />} />
