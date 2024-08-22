@@ -1,21 +1,35 @@
 import React from "react";
 import Dashboard from "../Components/Dashboard";
+import { IoMdHome } from "react-icons/io";
+import { IoMdAdd } from "react-icons/io";
+import "./Payable.css";
+
 const Receivable = () => {
   return (
-    <>
+    <div className="acc-payable--section">
       <Dashboard />
-      <div>
-        <div className="table-box">
-          <button> ➕ Add new </button>
+      <div className="main--payable">
+        <div className="navigation-indicator">
+          <IoMdHome /> / Dashboard
         </div>
+
         <div className="table-cont">
+          <div className="table--optns">
+            <p>Credits</p>
+            <div className="table-box">
+              <button onClick={() => "ff"}>
+                <IoMdAdd className="add-icon" />
+                Add new
+              </button>
+            </div>
+          </div>
+
           <table>
             <thead>
               <tr>
                 <th>Category</th>
                 <th> Account no </th>
                 <th>Customer Name</th>
-                
                 <th>Invoice no</th>
                 <th>Invoice date</th>
                 <th>Payment status</th>
@@ -26,6 +40,7 @@ const Receivable = () => {
               <tr>
                 <td>Office supplies</td>
                 <td>ACC-101</td>
+                <td>pravalika</td>
                 <td>INV-001</td>
                 <td>23/04/2023</td>
                 <td>paid</td>
@@ -34,6 +49,7 @@ const Receivable = () => {
               <tr>
                 <td>Transportation</td>
                 <td>ACC-102</td>
+                <td>charan</td>
                 <td>INV-002</td>
                 <td>23/04/2023</td>
                 <td>paid</td>
@@ -42,6 +58,7 @@ const Receivable = () => {
               <tr>
                 <td>Salaries</td>
                 <td>ACC-103</td>
+                <td>koti</td>
                 <td>INV-003</td>
                 <td>23/04/2023</td>
                 <td>Unpaid</td>
@@ -50,6 +67,7 @@ const Receivable = () => {
               <tr>
                 <td>Marketing</td>
                 <td>ACC-104</td>
+                <td>mohan</td>
                 <td>INV-004</td>
                 <td>23/04/2023</td>
                 <td>Unpaid</td>
@@ -58,6 +76,7 @@ const Receivable = () => {
               <tr>
                 <td>Insurance</td>
                 <td>ACC-105</td>
+                <td>devi</td>
                 <td>INV-006</td>
                 <td>23/04/2023</td>
                 <td>Unpaid</td>
@@ -67,7 +86,7 @@ const Receivable = () => {
           </table>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
