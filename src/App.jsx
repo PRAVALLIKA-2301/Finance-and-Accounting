@@ -3,6 +3,7 @@ import Payable from "./pages/Payable.jsx";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Receivable from "./pages/Receivable.jsx";
 import Ledger from "./pages/Ledger.jsx";
+import Vendors from "./pages/Vendors.jsx";
 import "./App.css";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
           <Route path="/Payable" element={<Payable />} />
           <Route path="/Receivable" element={<Receivable />} />
           <Route path="/ledger" element={<Ledger />} />
+          <Route path="/vendors" element={<Vendors />} />
         </Routes>
       </Router>
     </div>
