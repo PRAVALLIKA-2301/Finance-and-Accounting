@@ -1,1 +1,17 @@
 
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    -webkit-box-sizing: inherit;
+    box-sizing: inherit;
+  }
+  
+  .app {
+    width: 100vw;
+    height: 100vh;
+  }

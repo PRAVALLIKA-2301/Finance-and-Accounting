@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { Modal, Button } from "antd";
 import Dashboard from "../Components/Dashboard";
 import "../pages/Payable.css";
+import { IoMdHome } from "react-icons/io";
+import { IoMdAdd } from "react-icons/io";
 
 const Payable = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
   // const [selectedAddNew, setSelectedAddNew] = useState(null);
   const [isRowVisible, setISRowVisible] = useState(false);
-  // const [onSubmit, setOnSubmit] = useState(false);
 
   const handleRowClick = (row) => {
     setSelectedRow(row);
@@ -22,10 +23,7 @@ const Payable = () => {
   const handleNewClick = () => {
     setISRowVisible(true);
   };
-  // const handlesubmit = () => {
-  //   setOnSubmit(true);
-  // };
-
+  const handlesubmit = () => {};
   const data = [
     {
       category: "Office supplies",
@@ -75,13 +73,26 @@ const Payable = () => {
   ];
 
   return (
-    <>
+    <div className="acc-payable--section">
       <Dashboard />
-      <div>
-        <div className="table-box">
-          <button onClick={handleNewClick}> ➕ Add new </button>
+      <div className="main--payable">
+        <div className="navigation-indicator">
+          <IoMdHome /> / Dashboard
         </div>
+
         <div className="table-cont">
+          <div className="table--optns">
+            <p>Debits</p>
+            <div className="table-box">
+              <button onClick={() => handleNewClick()}>
+                <IoMdAdd className="add-icon" />
+                Add new
+              </button>
+            </div>
+          </div>
+
+          {/* <div className="line"></div> */}
+
           <table>
             <thead>
               <tr>
@@ -104,33 +115,9 @@ const Payable = () => {
                   <td>{row.paymentMode}</td>
                 </tr>
               ))}
-              {isRowVisible && (
-                <tr>
-                  <td>
-                    <input type="text" />
-                  </td>
-                  <td>
-                    <input type="text" />
-                  </td>
-                  <td>
-                    <input type="text" />
-                  </td>
-                  <td>
-                    <input type="text" />
-                  </td>
-                  <td>
-                    <input type="text" />
-                  </td>
-                  <td>
-                    <input type="text" />
-                  </td>
-                </tr>
-              )}
             </tbody>
-            {isRowVisible && <Button>Submit</Button>}
           </table>
         </div>
-
         <Modal
           title="Transaction Details"
           visible={isModalVisible}
@@ -161,7 +148,7 @@ const Payable = () => {
           )}
         </Modal>
       </div>
-    </>
+    </div>
   );
 };
 
