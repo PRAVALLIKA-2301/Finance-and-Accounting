@@ -80,6 +80,8 @@ import "../pages/Payable.css";
 const Payable = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
+  // const [selectedAddNew, setSelectedAddNew] = useState(null);
+  const [isRowVisible, setISRowVisible] = useState(false);
 
   const handleRowClick = (row) => {
     setSelectedRow(row);
@@ -90,7 +92,10 @@ const Payable = () => {
     setIsModalVisible(false);
     setSelectedRow(null);
   };
-
+  const handleNewClick = () => {
+    setISRowVisible(true);
+  };
+  const handlesubmit = () => {};
   const data = [
     {
       category: "Office supplies",
@@ -144,7 +149,7 @@ const Payable = () => {
       <Dashboard />
       <div>
         <div className="table-box">
-          <button> ➕ Add new </button>
+          <button onClick={() => handleNewClick()}> ➕ Add new </button>
         </div>
         <div className="table-cont">
           <table>

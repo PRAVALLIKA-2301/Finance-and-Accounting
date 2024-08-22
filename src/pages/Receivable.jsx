@@ -6,7 +6,7 @@ const Receivable = () => {
       <Dashboard />
       <div>
         <div className="table-box">
-          <input placeholder=" ➕ Add new " />
+          <button> ➕ Add new </button>
         </div>
         <div className="table-cont">
           <table>
@@ -14,6 +14,8 @@ const Receivable = () => {
               <tr>
                 <th>Category</th>
                 <th> Account no </th>
+                <th>Customer Name</th>
+                
                 <th>Invoice no</th>
                 <th>Invoice date</th>
                 <th>Payment status</th>
