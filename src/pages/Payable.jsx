@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import { Modal, Button } from "antd";
+import { Modal, Button, Form, Input, DatePicker, Select } from "antd";
 import Dashboard from "../Components/Dashboard";
 import "../pages/Payable.css";
 import { IoMdHome } from "react-icons/io";
 import { IoMdAdd } from "react-icons/io";
 
+const { Option } = Select;
+
 const Payable = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
-  // const [selectedAddNew, setSelectedAddNew] = useState(null);
-  const [isRowVisible, setISRowVisible] = useState(false);
+  const [isAddNewModalVisible, setIsAddNewModalVisible] = useState(false);
 
   const handleRowClick = (row) => {
     setSelectedRow(row);
@@ -20,10 +21,20 @@ const Payable = () => {
     setIsModalVisible(false);
     setSelectedRow(null);
   };
+
   const handleNewClick = () => {
-    setISRowVisible(true);
+    setIsAddNewModalVisible(true);
   };
-  const handlesubmit = () => {};
+
+  const handleAddNewCancel = () => {
+    setIsAddNewModalVisible(false);
+  };
+
+  const handleAddNewFinish = (values) => {
+    console.log("New Data: ", values);
+    setIsAddNewModalVisible(false);
+  };
+
   const data = [
     {
       category: "Office supplies",
@@ -84,14 +95,12 @@ const Payable = () => {
           <div className="table--optns">
             <p>Debits</p>
             <div className="table-box">
-              <button onClick={() => handleNewClick()}>
+              <button onClick={handleNewClick}>
                 <IoMdAdd className="add-icon" />
                 Add new
               </button>
             </div>
           </div>
-
-          {/* <div className="line"></div> */}
 
           <table>
             <thead>
@@ -118,6 +127,7 @@ const Payable = () => {
             </tbody>
           </table>
         </div>
+
         <Modal
           title="Transaction Details"
           visible={isModalVisible}
@@ -130,11 +140,11 @@ const Payable = () => {
         >
           {selectedRow && (
             <div>
-              <p>Account No:{selectedRow.accountNo}</p>
-              <p>Transaction Date:{selectedRow.transactionDate}</p>
-              <p>Invoice Date:{selectedRow.invoiceDate}</p>
-              <p>Category:{selectedRow.category}</p>
-              <p>Payment Mode:{selectedRow.paymentMode}</p>
+              <p>Account No: {selectedRow.accountNo}</p>
+              <p>Transaction Date: {selectedRow.transactionDate}</p>
+              <p>Invoice Date: {selectedRow.invoiceDate}</p>
+              <p>Category: {selectedRow.category}</p>
+              <p>Payment Mode: {selectedRow.paymentMode}</p>
               {selectedRow.paymentMode === "EMI" && (
                 <>
                   <p>Due Date: 24/12/2024{selectedRow.dueDate}</p>
@@ -146,6 +156,122 @@ const Payable = () => {
               )}
             </div>
           )}
+        </Modal>
+
+        <Modal
+          title="Add New debit "
+          visible={isAddNewModalVisible}
+          onCancel={handleAddNewCancel}
+          footer={null}
+        >
+          <Form layout="vertical" onFinish={handleAddNewFinish}>
+            <div className="abc" style={{ display: "flex", gap: "3rem" }}>
+              <div style={{ flexGrow: "1" }}>
+                <Form.Item
+                  name="category"
+                  label="Category"
+                  rules={[{ required: true, message: "Please enter category" }]}
+                >
+                  <Input />
+                </Form.Item>
+              </div>
+              <div style={{ flexGrow: "1" }}>
+                <Form.Item
+                  name="accountNo"
+                  label="Account No"
+                  rules={[
+                    { required: true, message: "Please enter account number" },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+              </div>
+            </div>
+            <div className="abc" style={{ display: "flex", gap: "3rem" }}>
+              <div style={{ flexGrow: "1" }}>
+                <Form.Item
+                  name="invoiceNo"
+                  label="Invoice No"
+                  rules={[
+                    { required: true, message: "Please enter invoice number" },
+                  ]}
+                >
+                  <Input />
+                </Form.Item>
+              </div>
+              <div style={{ flexGrow: "1" }}>
+                <Form.Item
+                  name="invoiceDate"
+                  label="Invoice Date"
+                  rules={[
+                    { required: true, message: "Please select invoice date" },
+                  ]}
+                >
+                  <DatePicker />
+                </Form.Item>
+              </div>
+            </div>
+            <div className="abc" style={{ display: "flex", gap: "3rem" }}>
+              <div style={{ flexGrow: "1" }}>
+                <Form.Item
+                  name="paymentStatus"
+                  label="Payment Status"
+                  rules={[
+                    { required: true, message: "Please select payment status" },
+                  ]}
+                >
+                  <Select>
+                    <Option value="Paid">Paid</Option>
+                    <Option value="Unpaid">Unpaid</Option>
+                    <Option value="Pending">Pending</Option>
+                  </Select>
+                </Form.Item>
+              </div>
+              <div style={{ flexGrow: "1" }}>
+                <Form.Item
+                  name="paymentMode"
+                  label="Payment Mode"
+                  rules={[
+                    { required: true, message: "Please select payment mode" },
+                  ]}
+                >
+                  <Select>
+                    <Option value="Cash">Cash</Option>
+                    <Option value="Credit Card">Credit Card</Option>
+                    <Option value="Bank Transfer">Bank Transfer</Option>
+                    <Option value="EMI">EMI</Option>
+                  </Select>
+                </Form.Item>
+              </div>
+            </div>
+            <div>
+              <div>
+                <Form.Item
+                  name="transactionDate"
+                  label="Transaction Date"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please select transaction date",
+                    },
+                  ]}
+                >
+                  <DatePicker />
+                </Form.Item>
+              </div>
+            </div>
+            <div>
+              <Form.Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  onFinish={handleAddNewFinish}
+                >
+                  Submit
+                </Button>
+              </Form.Item>
+            </div>
+          </Form>
         </Modal>
       </div>
     </div>

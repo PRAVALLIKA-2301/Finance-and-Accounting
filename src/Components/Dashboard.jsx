@@ -16,14 +16,7 @@ const Dashboard = () => {
     <div className="dashLink-cont">
       {/* logo */}
       <div className="dashLink-logo">
-        <img
-          src={"fbf"}
-          alt="logo.jpeg"
-          style={{ height: "30px", width: "30px" }}
-        />
-        <span>
-          <h2>VTS</h2>
-        </span>
+        {/* <h2>SyncroFlow</h2> */}
         <hr />
       </div>
 
@@ -31,6 +24,11 @@ const Dashboard = () => {
 
       {/* menu's */}
       <ul className="nav-menus-ul">
+      <li className="dashLink">
+          <NavLink exact to="/dashboard" activeClassName="active">
+            <MdOutlinePayment size={20} /> Dashboard
+          </NavLink>
+        </li>
         <li className="dashLink">
           <NavLink exact to="/payable" activeClassName="active">
             <MdOutlinePayment size={20} /> Payable
