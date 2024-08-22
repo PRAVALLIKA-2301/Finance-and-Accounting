@@ -1,4 +1,5 @@
-import Hero from "./Components/Hero.jsx";
+import Dashboard from "./Components/Dashboard.jsx";
+import Payable from "./pages/Payable.jsx";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -6,7 +7,8 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/Hero" element={<Hero />} />
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/Payable" element={<Payable />} />
         </Routes>
       </Router>
     </div>
