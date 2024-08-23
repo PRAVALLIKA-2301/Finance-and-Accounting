@@ -15,13 +15,55 @@ const Ledger = () => {
   const [noTransactions, setNoTransactions] = useState(false);
 
   const ledgerData = [
-    { AccNo: "ACC-101", date: "22-08-2024", Debit: 20000, Credit: 30000 },
-    { AccNo: "ACC-102", date: "21-08-2024", Debit: 5000, Credit: 3000 },
-    { AccNo: "ACC-103", date: "20-08-2024", Debit: 3000, Credit: 4000 },
-    { AccNo: "ACC-104", date: "19-08-2024", Debit: 4000, Credit: 40000 },
-    { AccNo: "ACC-105", date: "18-08-2024", Debit: 20000, Credit: 40000 },
-    { AccNo: "ACC-106", date: "17-08-2024", Debit: 6000, Credit: 2000 },
-    { AccNo: "ACC-107", date: "16-08-2024", Debit: 3000, Credit: 100000 },
+    {
+      AccNo: "ACC-101",
+      Transaction: "payment to vendor",
+      date: "22-08-2024",
+      Debit: 20000,
+      Credit: 0,
+    },
+    {
+      AccNo: "ACC-102",
+      Transaction: "Both",
+      date: "21-08-2024",
+      Debit: 5000,
+      Credit: 3000,
+    },
+    {
+      AccNo: "ACC-103",
+      Transaction: "payment from customer",
+      date: "20-08-2024",
+      Debit: 0,
+      Credit: 4000,
+    },
+    {
+      AccNo: "ACC-104",
+      Transaction: "Both",
+      date: "19-08-2024",
+      Debit: 4000,
+      Credit: 40000,
+    },
+    {
+      AccNo: "ACC-105",
+      Transaction: "payment to vendor",
+      date: "18-08-2024",
+      Debit: 20000,
+      Credit: 0,
+    },
+    {
+      AccNo: "ACC-106",
+      Transaction: "payment to vendor",
+      date: "17-08-2024",
+      Debit: 6000,
+      Credit: 0,
+    },
+    {
+      AccNo: "ACC-107",
+      Transaction: "payment from customer",
+      date: "16-08-2024",
+      Debit: 0,
+      Credit: 100000,
+    },
   ];
 
   const handleSearch = (value) => {
@@ -42,35 +84,55 @@ const Ledger = () => {
   };
 
   const handleDateChange = (dates) => {
-    setStartDate(dates ? dates[0] : null);
-    setEndDate(dates ? dates[1] : null);
+    if (dates) {
+      const [start, end] = dates;
+      setStartDate(start ? start.toDate() : null);
+      setEndDate(end ? end.toDate() : null);
+    } else {
+      setStartDate(null);
+      setEndDate(null);
+    }
+  };
+
+  const parseDate = (dateString) => {
+    const [day, month, year] = dateString.split("-").map(Number);
+    return new Date(year, month - 1, day);
   };
 
   const handleGetDetails = () => {
     if (startDate && endDate && selectedAccount) {
-      // Directly use moment without reformatting startDate and endDate
-      const formattedStartDate = moment(startDate);
-      const formattedEndDate = moment(endDate);
-  
-      console.log("Formatted Start Date:", formattedStartDate.format("DD-MM-YYYY"));
-      console.log("Formatted End Date:", formattedEndDate.format("DD-MM-YYYY"));
-  
-      // Filtering ledger data based on the account number and date range
+      // Set hours for start and end dates
+      const formattedStartDate = new Date(startDate);
+      formattedStartDate.setHours(0, 0, 0, 0);
+
+      const formattedEndDate = new Date(endDate);
+      formattedEndDate.setHours(23, 59, 59, 999);
+
+      console.log("Formatted Start Date:", formattedStartDate.toISOString());
+      console.log("Formatted End Date:", formattedEndDate.toISOString());
+
       const filteredData = ledgerData.filter((item) => {
-        const itemDate = moment(item.date, "DD-MM-YYYY");
-        console.log("Item Date:", itemDate.format("DD-MM-YYYY"));
-  
-        // Check if the item's date falls within the selected range
+        const itemDate = parseDate(item.date);
+        console.log("Item Date:", itemDate.toISOString());
+
         return (
           item.AccNo === selectedAccount.AccNo &&
-          itemDate.isBetween(formattedStartDate, formattedEndDate, "days", "[]")
+          itemDate >= formattedStartDate &&
+          itemDate <= formattedEndDate
         );
       });
-  
+
       console.log("Filtered Data:", filteredData);
-      const totalDebits = filteredData.reduce((acc, item) => acc + item.Debit, 0);
-      const totalCredits = filteredData.reduce((acc, item) => acc + item.Credit, 0);
-  
+
+      const totalDebits = filteredData.reduce(
+        (acc, item) => acc + item.Debit,
+        0
+      );
+      const totalCredits = filteredData.reduce(
+        (acc, item) => acc + item.Credit,
+        0
+      );
+
       setDebitSum(totalDebits);
       setCreditSum(totalCredits);
       setNoTransactions(filteredData.length === 0);
@@ -80,7 +142,6 @@ const Ledger = () => {
       setNoTransactions(true);
     }
   };
-  
 
   return (
     <div className="acc-ledger-section">
@@ -138,7 +199,13 @@ const Ledger = () => {
       >
         <Space direction="vertical" size={12}>
           <p>Select Date Range:</p>
-          <DatePicker.RangePicker onChange={handleDateChange} />
+          <DatePicker.RangePicker
+            onChange={handleDateChange}
+            value={[
+              startDate ? moment(startDate) : null,
+              endDate ? moment(endDate) : null,
+            ]}
+          />
           <Button
             type="primary"
             onClick={handleGetDetails}
