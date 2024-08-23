@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Pie, Bar } from "react-chartjs-2";
-import "./Piechart.css";
+import { Bar } from "react-chartjs-2";
+import "../Components/InvoiceBar.css";
 
 import {
   Chart as ChartJS,
@@ -24,33 +24,6 @@ ChartJS.register(
 const Piechart = () => {
   const [employeeCount, setEmployeeCount] = useState(0);
   const [activeCount, setActiveCount] = useState(0);
-
-  const pieData = {
-    labels: ["Completed", "Pending", "InProgress"],
-    datasets: [
-      {
-        data: [300, 200, 120],
-        backgroundColor: [
-          "#FF6384",
-          "#36A2EB",
-          "#9966FF",
-          "#4BC0C0",
-          "#9966FF",
-          "#FF9F40",
-          "#FF6384",
-        ],
-        hoverBackgroundColor: [
-          "#FF6384",
-          "#36A2EB",
-          "#9966FF",
-          "#4BC0C0",
-          "#9966FF",
-          "#FF9F40",
-          "#FF6384",
-        ],
-      },
-    ],
-  };
 
   const options = {
     plugins: {
@@ -114,43 +87,15 @@ const Piechart = () => {
   }, []);
 
   return (
-    <div className="chart-container">
-      <div className="empCards">
-        <div className="empCard">
-          <h5 className="header"> Invoices Count</h5>
-          <div className="counter">{employeeCount}</div>
-        </div>
-        <div className="empCard">
-          <h5 className="header">Pending Invoices</h5>
-          <div className="counter">{activeCount}</div>
-        </div>
-      </div>
-      <div className="jobTitlePie">
-        <div className="pie-chart-container">
-          <Pie data={pieData} options={options} width={200} height={200} />
-          <div className="legend-container">
-            {pieData.labels.map((label, index) => (
-              <div key={index} className="legend-item">
-                <span
-                  className="legend-color"
-                  style={{
-                    backgroundColor: pieData.datasets[0].backgroundColor[index],
-                  }}
-                ></span>
-                <span className="legend-label">{`${label}: ${pieData.datasets[0].data[index]}`}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-      {/* <div className="yearlyEmp">
+    <div className="Invoicechart-container">
+      <div className="yearlyEmp">
         <Bar
           data={barData}
           options={{ maintainAspectRatio: false }}
           width={200}
           height={200}
-        />
-      </div> */}
+        /> 
+      </div>
     </div>
   );
 };

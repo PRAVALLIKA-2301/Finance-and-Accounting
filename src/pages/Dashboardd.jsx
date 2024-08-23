@@ -6,6 +6,7 @@ import CashFlowChart from "../Components/Cashflow";
 import ProfitLossChart from "../Components/Profitloss";
 import MonthlySummaryChart from "../Components/Monthlysummary";
 import Piechart from "../Components/Piechart";
+import InvoicesBar from "../Components/InvoicesBar";
 
 function Dashboardd() {
   return (
@@ -16,17 +17,17 @@ function Dashboardd() {
         <div className="cards-container">
           <div className="card">
             <h3>Payables</h3>
-            <p>Total Payables: $120,000</p>
-            <p>Due Today: $15,000</p>
+            <p>Total Payables: 1,20,000</p>
+            <p>Due Today: 15,000</p>
           </div>
           <div className="card">
             <h3>Receivables</h3>
-            <p>Total Receivables: $150,000</p>
-            <p>Overdue: $20,000</p>
+            <p>Total Receivables: 1,50,000</p>
+            <p>Overdue: 20,000</p>
           </div>
           <div className="card">
             <h3>Ledger Balance</h3>
-            <p>Current Balance: $500,000</p>
+            <p>Current Balance: 5,00,000</p>
             <p>Last Updated: 12 Aug 2024</p>
           </div>
           <div className="card">
@@ -57,6 +58,10 @@ function Dashboardd() {
           <div className="chart-section">
             <h2>Invoices</h2>
             <Piechart />
+          </div>
+          <div className="chart-section">
+            <h2>Invoices</h2>
+            <InvoicesBar />
           </div>
         </div>
       </div>
