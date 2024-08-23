@@ -169,6 +169,7 @@ const Ledger = () => {
             <thead>
               <tr>
                 <th>Account No</th>
+                <th>Transaction</th>
                 <th>Date</th>
                 <th>Debits</th>
                 <th>Credits</th>
@@ -178,6 +179,7 @@ const Ledger = () => {
               {ledgerData.map((e, index) => (
                 <tr key={index}>
                   <td>{e.AccNo}</td>
+                  <td>{e.Transaction}</td>
                   <td>{e.date}</td>
                   <td>{e.Debit.toLocaleString()}</td>
                   <td>{e.Credit.toLocaleString()}</td>
