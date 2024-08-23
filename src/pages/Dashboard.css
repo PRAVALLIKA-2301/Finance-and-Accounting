@@ -2,7 +2,6 @@
   display: flex;
   justify-content: start;
   gap: 3rem;
-
   height: calc(95%);
   padding: 1.6em 2rem;
 }

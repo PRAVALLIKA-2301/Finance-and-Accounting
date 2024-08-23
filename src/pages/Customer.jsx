@@ -115,9 +115,9 @@ const Payable = () => {
                 <th> Phone No</th>
                 <th> Country</th>
                 <th> State</th>
-                <th> City</th>
+                {/* <th> City</th>
                 <th> Pin</th>
-                <th>Address</th>
+                <th>Address</th> */}
               </tr>
             </thead>
             <tbody>
@@ -128,9 +128,9 @@ const Payable = () => {
                   <td>{row.cPhone}</td>
                   <td>{row.cCountry}</td>
                   <td>{row.cState}</td>
-                  <td>{row.cCity}</td>
+                  {/* <td>{row.cCity}</td>
                   <td>{row.cPin}</td>
-                  <td>{row.cAddress}</td>
+                  <td>{row.cAddress}</td> */}
                 </tr>
               ))}
             </tbody>
@@ -149,7 +149,7 @@ const Payable = () => {
         >
           {selectedRow && (
             <div>
-              <p>Account No: {selectedRow.accountNo}</p>
+              <p> Customer Account No: {selectedRow.accountNo}</p>
               <p>Transaction Date: {selectedRow.transactionDate}</p>
               <p>Invoice Date: {selectedRow.invoiceDate}</p>
               <p>Category: {selectedRow.category}</p>
@@ -168,7 +168,7 @@ const Payable = () => {
         </Modal>
 
         <Modal
-          title="Add New debit "
+          title="Add New Customer "
           visible={isAddNewModalVisible}
           onCancel={handleAddNewCancel}
           footer={null}
@@ -177,9 +177,9 @@ const Payable = () => {
             <div className="abc" style={{ display: "flex", gap: "3rem" }}>
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
-                  name="category"
-                  label="Category"
-                  rules={[{ required: true, message: "Please enter category" }]}
+                  name="Customer Name"
+                  label="Customer Name"
+                  rules={[{ required: true, message: "Please enter Name" }]}
                 >
                   <Input />
                 </Form.Item>
@@ -199,10 +199,67 @@ const Payable = () => {
             <div className="abc" style={{ display: "flex", gap: "3rem" }}>
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
-                  name="invoiceNo"
-                  label="Invoice No"
+                  name="E-mail"
+                  label="E-mail"
+                  rules={[{ required: true, message: "Please enter Emmail" }]}
+                >
+                  <Input />
+                </Form.Item>
+              </div>
+              <div style={{ flexGrow: "1" }}>
+                <Form.Item
+                  name="Phone No"
+                  label="Phone No"
                   rules={[
-                    { required: true, message: "Please enter invoice number" },
+                    { required: true, message: "Please enter Phone Number" },
+                  ]}
+                >
+                  <Input />
+                  {/* <DatePicker /> */}
+                </Form.Item>
+              </div>
+            </div>
+            <div className="abc" style={{ display: "flex", gap: "3rem" }}>
+              <div style={{ flexGrow: "1" }}>
+                <Form.Item
+                  name="Country"
+                  label="Country"
+                  rules={[{ required: true, message: "Please enter Country" }]}
+                >
+                  <Input />
+                  {/* <Select>
+                    <Option value="Paid">Paid</Option>
+                    <Option value="Unpaid">Unpaid</Option>
+                    <Option value="Pending">Pending</Option>
+                  </Select> */}
+                </Form.Item>
+              </div>
+              <div style={{ flexGrow: "1" }}>
+                <Form.Item
+                  name="State"
+                  label="State"
+                  rules={[{ required: true, message: "Please enter State" }]}
+                >
+                  {/* <Select>
+                    <Option value="Cash">Cash</Option>
+                    <Option value="Credit Card">Credit Card</Option>
+                    <Option value="Bank Transfer">Bank Transfer</Option>
+                    <Option value="EMI">EMI</Option>
+                  </Select> */}
+                  <Input />
+                </Form.Item>
+              </div>
+            </div>
+            <div className="abc" style={{ display: "flex", gap: "3rem" }}>
+              <div style={{ flexGrow: "1" }}>
+                <Form.Item
+                  name="City"
+                  label="City"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Please enter City",
+                    },
                   ]}
                 >
                   <Input />
@@ -210,62 +267,16 @@ const Payable = () => {
               </div>
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
-                  name="invoiceDate"
-                  label="Invoice Date"
-                  rules={[
-                    { required: true, message: "Please select invoice date" },
-                  ]}
-                >
-                  <DatePicker />
-                </Form.Item>
-              </div>
-            </div>
-            <div className="abc" style={{ display: "flex", gap: "3rem" }}>
-              <div style={{ flexGrow: "1" }}>
-                <Form.Item
-                  name="paymentStatus"
-                  label="Payment Status"
-                  rules={[
-                    { required: true, message: "Please select payment status" },
-                  ]}
-                >
-                  <Select>
-                    <Option value="Paid">Paid</Option>
-                    <Option value="Unpaid">Unpaid</Option>
-                    <Option value="Pending">Pending</Option>
-                  </Select>
-                </Form.Item>
-              </div>
-              <div style={{ flexGrow: "1" }}>
-                <Form.Item
-                  name="paymentMode"
-                  label="Payment Mode"
-                  rules={[
-                    { required: true, message: "Please select payment mode" },
-                  ]}
-                >
-                  <Select>
-                    <Option value="Cash">Cash</Option>
-                    <Option value="Credit Card">Credit Card</Option>
-                    <Option value="Bank Transfer">Bank Transfer</Option>
-                    <Option value="EMI">EMI</Option>
-                  </Select>
-                </Form.Item>
-              </div>
-            </div>
-            <div>
-              <div>
-                <Form.Item
-                  name="transactionDate"
-                  label="Transaction Date"
+                  name="Address"
+                  label="Address"
                   rules={[
                     {
                       required: true,
-                      message: "Please select transaction date",
+                      message: "Please enter Address",
                     },
                   ]}
                 >
-                  <DatePicker />
+                  <Input />
                 </Form.Item>
               </div>
             </div>

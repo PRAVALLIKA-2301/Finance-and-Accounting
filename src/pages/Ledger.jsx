@@ -48,14 +48,29 @@ const Ledger = () => {
 
   const handleGetDetails = () => {
     if (startDate && endDate && selectedAccount) {
-      const filteredData = ledgerData.filter(
-        (item) =>
+      // Directly use moment without reformatting startDate and endDate
+      const formattedStartDate = moment(startDate);
+      const formattedEndDate = moment(endDate);
+  
+      console.log("Formatted Start Date:", formattedStartDate.format("DD-MM-YYYY"));
+      console.log("Formatted End Date:", formattedEndDate.format("DD-MM-YYYY"));
+  
+      // Filtering ledger data based on the account number and date range
+      const filteredData = ledgerData.filter((item) => {
+        const itemDate = moment(item.date, "DD-MM-YYYY");
+        console.log("Item Date:", itemDate.format("DD-MM-YYYY"));
+  
+        // Check if the item's date falls within the selected range
+        return (
           item.AccNo === selectedAccount.AccNo &&
-          moment(item.date, "DD-MM-YYYY").isBetween(startDate, endDate, null, "[]")
-      );
+          itemDate.isBetween(formattedStartDate, formattedEndDate, "days", "[]")
+        );
+      });
+  
+      console.log("Filtered Data:", filteredData);
       const totalDebits = filteredData.reduce((acc, item) => acc + item.Debit, 0);
       const totalCredits = filteredData.reduce((acc, item) => acc + item.Credit, 0);
-
+  
       setDebitSum(totalDebits);
       setCreditSum(totalCredits);
       setNoTransactions(filteredData.length === 0);
@@ -65,6 +80,7 @@ const Ledger = () => {
       setNoTransactions(true);
     }
   };
+  
 
   return (
     <div className="acc-ledger-section">
@@ -79,7 +95,7 @@ const Ledger = () => {
             <p>Accounts</p>
             <div className="table-search">
               <Input.Search
-                placeholder="Enter Acc No"
+                placeholder="Enter Last 3 Digits of Account No"
                 enterButton="Search"
                 onSearch={handleSearch}
                 value={searchAcc}
@@ -123,7 +139,11 @@ const Ledger = () => {
         <Space direction="vertical" size={12}>
           <p>Select Date Range:</p>
           <DatePicker.RangePicker onChange={handleDateChange} />
-          <Button type="primary" onClick={handleGetDetails} disabled={!startDate || !endDate}>
+          <Button
+            type="primary"
+            onClick={handleGetDetails}
+            disabled={!startDate || !endDate}
+          >
             Get Details
           </Button>
         </Space>

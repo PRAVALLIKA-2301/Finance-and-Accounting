@@ -125,8 +125,9 @@ const Payable = () => {
                 <th>Customer Name</th>
                 <th>Invoice no</th>
                 <th>Invoice date</th>
-                <th>Payment status</th>
                 <th>Payment mode</th>
+
+                <th>Payment status</th>
               </tr>
             </thead>
             <tbody>
@@ -137,8 +138,9 @@ const Payable = () => {
                   <td>{row.customerName}</td>
                   <td>{row.invoiceNo}</td>
                   <td>{row.invoiceDate}</td>
-                  <td>{row.paymentStatus}</td>
                   <td>{row.paymentMode}</td>
+
+                  <td>{row.paymentStatus}</td>
                 </tr>
               ))}
             </tbody>
@@ -231,21 +233,6 @@ const Payable = () => {
             <div className="abc" style={{ display: "flex", gap: "3rem" }}>
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
-                  name="paymentStatus"
-                  label="Payment Status"
-                  rules={[
-                    { required: true, message: "Please select payment status" },
-                  ]}
-                >
-                  <Select>
-                    <Option value="Paid">Paid</Option>
-                    <Option value="Unpaid">Unpaid</Option>
-                    <Option value="Pending">Pending</Option>
-                  </Select>
-                </Form.Item>
-              </div>
-              <div style={{ flexGrow: "1" }}>
-                <Form.Item
                   name="paymentMode"
                   label="Payment Mode"
                   rules={[
@@ -257,6 +244,21 @@ const Payable = () => {
                     <Option value="Credit Card">Credit Card</Option>
                     <Option value="Bank Transfer">Bank Transfer</Option>
                     <Option value="EMI">EMI</Option>
+                  </Select>
+                </Form.Item>
+              </div>
+              <div style={{ flexGrow: "1" }}>
+                <Form.Item
+                  name="paymentStatus"
+                  label="Payment Status"
+                  rules={[
+                    { required: true, message: "Please select payment status" },
+                  ]}
+                >
+                  <Select>
+                    <Option value="Paid">Paid</Option>
+                    <Option value="Unpaid">Unpaid</Option>
+                    <Option value="Pending">Pending</Option>
                   </Select>
                 </Form.Item>
               </div>

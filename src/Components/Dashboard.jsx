@@ -1,9 +1,11 @@
 import React from "react";
 import "../Components/Dashboard.css";
+import logo from "../assets/ERP_logo.jpeg";
 // import logo from "../assets/logo.jpeg";
 // import { useNavigate } from "react-router";
 import { NavLink } from "react-router-dom";
-
+import { FaPeopleGroup } from "react-icons/fa6";
+import { RxDashboard } from "react-icons/rx";
 import { MdOutlinePayment } from "react-icons/md";
 import { GiReceiveMoney } from "react-icons/gi";
 import { FaHandshake } from "react-icons/fa";
@@ -16,7 +18,7 @@ const Dashboard = () => {
     <div className="dashLink-cont">
       {/* logo */}
       <div className="dashLink-logo">
-        {/* <h2>SyncroFlow</h2> */}
+        {/* <img src={logo} alt="" /> */}
         <hr />
       </div>
 
@@ -26,12 +28,17 @@ const Dashboard = () => {
       <ul className="nav-menus-ul">
         <li className="dashLink">
           <NavLink exact to="/dashboard" activeClassName="active">
-            <MdOutlinePayment size={20} /> Dashboard
+            <RxDashboard size={20} /> Dashboard
           </NavLink>
         </li>
         <li className="dashLink">
           <NavLink exact to="/customer" activeClassName="active">
-            <MdOutlinePayment size={20} /> Customers
+            <FaPeopleGroup size={20} /> Customers
+          </NavLink>
+        </li>
+        <li className="dashLink">
+          <NavLink exact to="/vendors" activeClassName="active">
+            <FaHandshake size={20} /> Vendors
           </NavLink>
         </li>
         <li className="dashLink">
@@ -47,11 +54,6 @@ const Dashboard = () => {
         <li className="dashLink">
           <NavLink exact to="/ledger" activeClassName="active">
             <PiNotebookThin size={20} /> Ledger
-          </NavLink>
-        </li>
-        <li className="dashLink">
-          <NavLink exact to="/vendors" activeClassName="active">
-            <FaHandshake size={20} /> Vendors
           </NavLink>
         </li>
       </ul>

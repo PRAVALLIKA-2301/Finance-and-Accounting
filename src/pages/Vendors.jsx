@@ -92,7 +92,7 @@ const Payable = () => {
               <tr>
                 <th>Vendor Name</th>
                 <th>Contact Number</th>
-                <th>Email Addres</th>
+                <th>Email Address</th>
                 <th>Billing Address</th>
               </tr>
             </thead>
@@ -121,10 +121,11 @@ const Payable = () => {
         >
           {selectedRow && (
             <div>
-              <p>Account No: {selectedRow.accountNo}</p>
+              <p> Vendors Account No: {selectedRow.accountNo}</p>
+              <p>Category: {selectedRow.category}</p>
+
               <p>Transaction Date: {selectedRow.transactionDate}</p>
               <p>Invoice Date: {selectedRow.invoiceDate}</p>
-              <p>Category: {selectedRow.category}</p>
               <p>Payment Mode: {selectedRow.paymentMode}</p>
               {selectedRow.paymentMode === "EMI" && (
                 <>
@@ -140,7 +141,7 @@ const Payable = () => {
         </Modal>
 
         <Modal
-          title="Add New debit "
+          title="Add New Vendor"
           visible={isAddNewModalVisible}
           onCancel={handleAddNewCancel}
           footer={null}
@@ -149,8 +150,8 @@ const Payable = () => {
             <div className="abc" style={{ display: "flex", gap: "3rem" }}>
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
-                  name="category"
-                  label="Category"
+                  name="Vendor Name"
+                  label="Vendor Name"
                   rules={[{ required: true, message: "Please enter category" }]}
                 >
                   <Input />
@@ -171,8 +172,8 @@ const Payable = () => {
             <div className="abc" style={{ display: "flex", gap: "3rem" }}>
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
-                  name="invoiceNo"
-                  label="Invoice No"
+                  name="Category"
+                  label="Category"
                   rules={[
                     { required: true, message: "Please enter invoice number" },
                   ]}
@@ -182,33 +183,34 @@ const Payable = () => {
               </div>
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
-                  name="invoiceDate"
-                  label="Invoice Date"
+                  name="Email Address"
+                  label="Email Address"
                   rules={[
                     { required: true, message: "Please select invoice date" },
                   ]}
                 >
-                  <DatePicker />
+                  <Input />
                 </Form.Item>
               </div>
             </div>
             <div className="abc" style={{ display: "flex", gap: "3rem" }}>
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
-                  name="paymentStatus"
-                  label="Payment Status"
+                  name="Billing Address"
+                  label="Billing Address"
                   rules={[
                     { required: true, message: "Please select payment status" },
                   ]}
                 >
-                  <Select>
+                  {/* <Select>
                     <Option value="Paid">Paid</Option>
                     <Option value="Unpaid">Unpaid</Option>
                     <Option value="Pending">Pending</Option>
-                  </Select>
+                  </Select> */}
+                  <Input />
                 </Form.Item>
               </div>
-              <div style={{ flexGrow: "1" }}>
+              {/* <div style={{ flexGrow: "1" }}>
                 <Form.Item
                   name="paymentMode"
                   label="Payment Mode"
@@ -223,9 +225,9 @@ const Payable = () => {
                     <Option value="EMI">EMI</Option>
                   </Select>
                 </Form.Item>
-              </div>
+              </div> */}
             </div>
-            <div>
+            {/* <div>
               <div>
                 <Form.Item
                   name="transactionDate"
@@ -240,7 +242,7 @@ const Payable = () => {
                   <DatePicker />
                 </Form.Item>
               </div>
-            </div>
+            </div> */}
             <div>
               <Form.Item>
                 <Button

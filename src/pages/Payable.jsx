@@ -109,8 +109,9 @@ const Payable = () => {
                 <th>Account no</th>
                 <th>Invoice no</th>
                 <th>Invoice date</th>
-                <th>Payment status</th>
                 <th>Payment mode</th>
+
+                <th>Payment status</th>
               </tr>
             </thead>
             <tbody>
@@ -120,8 +121,9 @@ const Payable = () => {
                   <td>{row.accountNo}</td>
                   <td>{row.invoiceNo}</td>
                   <td>{row.invoiceDate}</td>
-                  <td>{row.paymentStatus}</td>
                   <td>{row.paymentMode}</td>
+
+                  <td>{row.paymentStatus}</td>
                 </tr>
               ))}
             </tbody>
