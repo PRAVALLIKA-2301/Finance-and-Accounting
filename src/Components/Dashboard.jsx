@@ -12,8 +12,6 @@ import { FaHandshake } from "react-icons/fa";
 import { PiNotebookThin } from "react-icons/pi";
 
 const Dashboard = () => {
-  // const navigate = useNavigate();
-
   return (
     <div className="dashLink-cont">
       {/* logo */}

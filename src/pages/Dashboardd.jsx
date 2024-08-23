@@ -5,6 +5,7 @@ import PayableReceivableChart from "../Components/PayableReceivableChart";
 import CashFlowChart from "../Components/Cashflow";
 import ProfitLossChart from "../Components/Profitloss";
 import MonthlySummaryChart from "../Components/Monthlysummary";
+import Piechart from "../Components/Piechart";
 
 function Dashboardd() {
   return (
@@ -52,6 +53,10 @@ function Dashboardd() {
           <div className="chart-section">
             <h2>Monthly Financial Summary</h2>
             <MonthlySummaryChart />
+          </div>
+          <div className="chart-section">
+            <h2>Invoices</h2>
+            <Piechart />
           </div>
         </div>
       </div>
