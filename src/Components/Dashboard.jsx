@@ -1,6 +1,6 @@
 import React from "react";
 import "../Components/Dashboard.css";
-import logo from "../assets/ERP_logo.jpeg";
+import logo from "../assets/ERP_logo.png";
 // import logo from "../assets/logo.jpeg";
 // import { useNavigate } from "react-router";
 import { NavLink } from "react-router-dom";
@@ -18,7 +18,7 @@ const Dashboard = () => {
     <div className="dashLink-cont">
       {/* logo */}
       <div className="dashLink-logo">
-        {/* <img src={logo} alt="" /> */}
+        <img src={logo} alt="" width={150} height={90} />
         <hr />
       </div>
 

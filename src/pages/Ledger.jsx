@@ -101,7 +101,6 @@ const Ledger = () => {
 
   const handleGetDetails = () => {
     if (startDate && endDate && selectedAccount) {
-      // Set hours for start and end dates
       const formattedStartDate = new Date(startDate);
       formattedStartDate.setHours(0, 0, 0, 0);
 
