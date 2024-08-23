@@ -6,13 +6,15 @@ import Ledger from "./pages/Ledger.jsx";
 import Vendors from "./pages/Vendors.jsx";
 import Customer from "./pages/Customer.jsx";
 import "./App.css";
+import Dashboardd from "./pages/Dashboardd.jsx";
 
 function App() {
   return (
     <div className="app">
       <Router>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboardd />} />
+          {/* <Route path="/" element={<Dashboardd />} /> */}
           <Route path="/customer" element={<Customer />} />
           <Route path="/Payable" element={<Payable />} />
           <Route path="/Receivable" element={<Receivable />} />
