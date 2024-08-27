@@ -77,6 +77,33 @@
 .table-cont td {
   text-align: center;
 }
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  color: #888; /* Adjust icon color */
+  font-size: 1.4rem; /* Adjust icon size */
+  pointer-events: none; /* Ensure the icon does not interfere with input interaction */
+}
+
+.search-input {
+  padding-left: 2.6rem; /* Increased padding to prevent hovering of icon and placeholder */
+  padding: 7px;
+  border-radius: 4px;
+  border: 2px solid black;
+  width: 100%; /* Ensure full width if needed */
+}
+
+.search-input::placeholder {
+  color: #aaa; /* Placeholder text color */
+  margin-left: 2rem;
+}
+
 .table-box {
   display: flex;
   gap: 2rem;
@@ -89,16 +116,11 @@
   border-radius: 4px;
   outline: none;
   border: none;
-  /* margin-left: 280px; */
-  /* margin-top: 100px; */
   cursor: pointer;
-  /* width: 120px; */
   font-size: 1.4rem;
-  /* justify-content: left; */
   color: white;
   font-weight: 400;
   background-color: rgb(26, 115, 232);
-
   display: flex;
   gap: 0.6rem;
 }
@@ -107,12 +129,6 @@
   border-color: rgb(162, 156, 156);
 }
 
-.table-box input {
-  padding: 7px;
-  border-radius: 4px;
-  border: 2px solid black;
-  
-}
 .acc-payable--section {
   display: flex;
   justify-content: start;

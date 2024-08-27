@@ -7,6 +7,7 @@ import { IoMdAdd } from "react-icons/io";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { MdSearch } from "react-icons/md";
 
 const { Option } = Select;
 
@@ -15,7 +16,9 @@ const Payable = () => {
   const [selectedRow, setSelectedRow] = useState(null);
   const [isAddNewModalVisible, setIsAddNewModalVisible] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState("Paid");
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([
+    
+  ]);
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredData = data.filter((row) => {
@@ -90,19 +93,21 @@ const Payable = () => {
       <Dashboard />
       <div className="main--payable">
         <div className="navigation-indicator">
-          <IoMdHome /> / Dashboard
+          <IoMdHome /> / Receivable
         </div>
 
         <div className="table-cont">
           <div className="table--optns">
             <p>Debits</p>
             <div className="table-box">
-              <div>
+              <div className="search-container">
+                <MdSearch className="search-icon" />
                 <input
                   type="text"
-                  placeholder="Enter Account Number"
+                  placeholder="Search Vendor"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
+                  className="search-input"
                 />
               </div>
               <div>

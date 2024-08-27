@@ -1,0 +1,10 @@
+.customer-all-transactions {
+  position: relative;
+  width: calc(100vw - 400px);
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.1) 0rem 0.25rem 0.375rem -0.0625rem,
+    rgba(0, 0, 0, 0.06) 0rem 0.125rem 0.25rem -0;
+  border-radius: 11px;
+  overflow: hidden;
+  flex-grow: 1;
+}

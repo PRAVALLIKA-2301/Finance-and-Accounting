@@ -7,16 +7,85 @@ import { IoMdAdd } from "react-icons/io";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { MdSearch } from "react-icons/md";
+import CustomerTransAll from "../Components/customerTransAll/CustomerTransAll";
 
 const Payable = () => {
+  const [customerAllTrans, setCustomerAllTrans] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  // data of specific customer/
+  const [clickedCustomerID, setClickedCustomerID] = useState(null);
   const [selectedRow, setSelectedRow] = useState(null);
+
+  //
   const [isAddNewModalVisible, setIsAddNewModalVisible] = useState(false);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([
+    {
+      AccountCode: "AC12345",
+      AmountReceivable: 5000,
+      Category: "Office Supplies",
+      DueDate: "2024-09-15",
+      InvoiceDate: "2024-08-01",
+      InvoiceNumber: "INV001",
+      PaymentDate: "2024-08-05",
+      PaymentMode: "Bank Transfer",
+      PaymentStatus: "Paid",
+      UTR: "UTR123456",
+    },
+    {
+      AccountCode: "AC67890",
+      AmountReceivable: 15000,
+      Category: "Consulting Services",
+      DueDate: "2024-10-01",
+      InvoiceDate: "2024-09-01",
+      InvoiceNumber: "INV002",
+      PaymentDate: "2024-09-10",
+      PaymentMode: "Credit Card",
+      PaymentStatus: "Paid",
+      UTR: "UTR789012",
+    },
+    {
+      AccountCode: "AC54321",
+      AmountReceivable: 8000,
+      Category: "Software Licenses",
+      DueDate: "2024-09-20",
+      InvoiceDate: "2024-08-10",
+      InvoiceNumber: "INV003",
+      PaymentDate: "2024-08-15",
+      PaymentMode: "Bank Transfer",
+      PaymentStatus: "Pending",
+      UTR: "",
+    },
+    {
+      AccountCode: "AC98765",
+      AmountReceivable: 2000,
+      Category: "Training",
+      DueDate: "2024-09-30",
+      InvoiceDate: "2024-08-25",
+      InvoiceNumber: "INV004",
+      PaymentDate: "2024-08-28",
+      PaymentMode: "Cheque",
+      PaymentStatus: "Paid",
+      UTR: "UTR345678",
+    },
+    {
+      AccountCode: "AC11223",
+      AmountReceivable: 12000,
+      Category: "Marketing",
+      DueDate: "2024-10-10",
+      InvoiceDate: "2024-09-15",
+      InvoiceNumber: "INV005",
+      PaymentDate: "",
+      PaymentMode: "",
+      PaymentStatus: "Unpaid",
+      UTR: "",
+    },
+  ]);
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredData = data.filter((row) => {
-    return row.CName.toLowerCase().includes(searchQuery.toLowerCase());
+    return row.AccountCode.toLowerCase().includes(searchQuery.toLowerCase());
   });
 
   // Function to submit new customer data
@@ -55,26 +124,8 @@ const Payable = () => {
   };
 
   // Function to fetch account details for a selected row
-  const handleFetchAccountDetails = async (AccountCode) => {
-    try {
-      const res = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}api/receivable/accountDetails/${AccountCode}`
-      );
-      return res.data;
-    } catch (error) {
-      console.log("Error in fetching account details: ", error);
-      toast.error("Error while fetching account details.", {
-        position: "top-center",
-      });
-    }
-  };
 
   // Handle row click to show transaction details
-  const handleRowClick = async (row) => {
-    const data = await handleFetchAccountDetails(row.AccountCode);
-    setSelectedRow(data);
-    setIsModalVisible(true);
-  };
 
   // Handle modal close
   const handleCancel = () => {
@@ -103,59 +154,82 @@ const Payable = () => {
     handleFetchData();
   }, []);
 
+  const handleCustomerClick = (ac) => {
+    setClickedCustomerID(ac);
+    setCustomerAllTrans(true);
+  };
+
+  const handleBackBtn = () => {
+    setCustomerAllTrans(false);
+  };
+
   return (
     <div className="acc-payable--section">
       <Dashboard />
       <div className="main--payable">
         <div className="navigation-indicator">
-          <IoMdHome /> / Dashboard
+          <IoMdHome /> / Customers
         </div>
 
-        <div className="table-cont">
-          <div className="table--optns">
-            <p>Customers</p>
+        {customerAllTrans ? (
+          <CustomerTransAll
+            customerID={clickedCustomerID}
+            setCustomerAllTrans={setCustomerAllTrans}
+          />
+        ) : (
+          <div className="table-cont">
+            <div className="table--optns">
+              <p>Customers</p>
 
-            <div className="table-box">
-              <div>
-                <input
-                  type="text"
-                  placeholder="Enter Customer Name"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </div>
-              <div>
-                <button onClick={handleNewClick}>
-                  <IoMdAdd className="add-icon" />
-                  Add new
-                </button>
+              <div className="table-box">
+                <div className="search-container">
+                  <MdSearch className="search-icon" />
+                  <input
+                    type="text"
+                    placeholder="Search Customer"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="search-input"
+                  />
+                </div>
+                <div>
+                  <button onClick={handleNewClick}>
+                    <IoMdAdd className="add-icon" />
+                    Add new
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
 
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Mail</th>
-                <th>Phone No</th>
-                <th>Country</th>
-                <th>State</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredData.map((row, index) => (
-                <tr key={index} onClick={() => handleRowClick(row)}>
-                  <td>{row.CName}</td>
-                  <td>{row.CMail}</td>
-                  <td>{row.Cphone}</td>
-                  <td>{row.Ccountry}</td>
-                  <td>{row.Cstate}</td>
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Mail</th>
+                  <th>Phone No</th>
+                  <th>Country</th>
+                  <th>State</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {filteredData.map((row, index) => (
+                  <tr
+                    key={index}
+                    onClick={() => {
+                      handleCustomerClick(row.AccountCode);
+                    }}
+                  >
+                    <td>{row.CName}</td>
+                    <td>{row.CMail}</td>
+                    <td>{row.Cphone}</td>
+                    <td>{row.Ccountry}</td>
+                    <td>{row.Cstate}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
 
         <Modal
           title="Transaction Details"
@@ -206,7 +280,10 @@ const Payable = () => {
                   name="AccountCode"
                   label="Account No"
                   rules={[
-                    { required: true, message: "Please enter account number" },
+                    {
+                      required: true,
+                      message: "Please enter account number",
+                    },
                   ]}
                 >
                   <Input />
@@ -267,34 +344,25 @@ const Payable = () => {
               </div>
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
-                  name="Caddress"
-                  label="Address"
-                  rules={[{ required: true, message: "Please enter Address" }]}
-                >
-                  <Input />
-                </Form.Item>
-              </div>
-              <div style={{ flexGrow: "1" }}>
-                <Form.Item
-                  name="Cpin"
-                  label="Pin code"
-                  rules={[{ required: true, message: "Please enter Pin code" }]}
+                  name="CzipCode"
+                  label="Zip Code"
+                  rules={[{ required: true, message: "Please enter Zip code" }]}
                 >
                   <Input />
                 </Form.Item>
               </div>
             </div>
-            <div style={{ textAlign: "center" }}>
-              <Form.Item>
-                <Button type="primary" htmlType="submit">
-                  Submit
-                </Button>
-              </Form.Item>
-            </div>
+
+            <Form.Item>
+              <Button type="primary" htmlType="submit">
+                Add Customer
+              </Button>
+            </Form.Item>
           </Form>
         </Modal>
+
+        <ToastContainer />
       </div>
-      <ToastContainer />
     </div>
   );
 };

@@ -8,12 +8,18 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { MdSearch } from "react-icons/md";
-
+import VendorTransAll from "../Components/vendorTransAll/vendorTransAll";
 const { Option } = Select;
 
 const Vendor = () => {
+  const [vendorAllTrans, setvendorAllTrans] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  // data of specific customer/
+  const [clickedVendorID, setClickedVendorID] = useState(null);
   const [selectedRow, setSelectedRow] = useState(null);
+
+  //
   const [isAddNewModalVisible, setIsAddNewModalVisible] = useState(false);
   const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -78,8 +84,8 @@ const Vendor = () => {
       const res = await axios.get(
         `${process.env.REACT_APP_BACKEND_URL}api/Payable/payable/${AccountCode}`
       );
-      // console.log(res.data);
       setSelectedRow(res.data);
+      console.log(res.data);
     } catch (error) {
       console.log(error);
       toast.error("Error while fetching the transaction details...", {
@@ -87,7 +93,13 @@ const Vendor = () => {
       });
     }
   };
-
+  const handleVendorClick = (ac) => {
+    setClickedVendorID(ac);
+    setvendorAllTrans(true);
+  };
+  const handleBackBtn = () => {
+    setvendorAllTrans(false);
+  };
   useEffect(() => {
     handleFetch();
   }, []);
@@ -97,53 +109,64 @@ const Vendor = () => {
       <Dashboard />
       <div className="main--payable">
         <div className="navigation-indicator">
-          <IoMdHome /> / Dashboard
+          <IoMdHome /> / Vendors
         </div>
-
-        <div className="table-cont">
-          <div className="table--optns">
-            <p>Vendors</p>
-            <div className="table-box">
-              <div>
-                <MdSearch />
-
-                <input
-                  type="text"
-                  placeholder="Search Vendor "
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </div>
-              <div>
-                <button onClick={handleNewClick}>
-                  <IoMdAdd className="add-icon" />
-                  Add new
-                </button>
+        {vendorAllTrans ? (
+          <VendorTransAll
+            vendorID={clickedVendorID}
+            setvendorAllTrans={setvendorAllTrans}
+          />
+        ) : (
+          <div className="table-cont">
+            <div className="table--optns">
+              <p>Vendors</p>
+              <div className="table-box">
+                <div className="search-container">
+                  <MdSearch className="search-icon" />
+                  <input
+                    type="text"
+                    placeholder="Search Vendor"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="search-input"
+                  />
+                </div>
+                <div>
+                  <button onClick={handleNewClick}>
+                    <IoMdAdd className="add-icon" />
+                    Add new
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
 
-          <table>
-            <thead>
-              <tr>
-                <th>Vendor Name</th>
-                <th>Contact Number</th>
-                <th>Email Address</th>
-                <th>Billing Address</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredData.map((row, index) => (
-                <tr key={index} onClick={() => handleRowClick(row)}>
-                  <td>{row.VendorName}</td>
-                  <td>{row.ContactNumber}</td>
-                  <td>{row.EmailAddress}</td>
-                  <td>{row.BillingAddress}</td>
+            <table>
+              <thead>
+                <tr>
+                  <th>Vendor Name</th>
+                  <th>Contact Number</th>
+                  <th>Email Address</th>
+                  <th>Billing Address</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {filteredData.map((row, index) => (
+                  <tr
+                    key={index}
+                    onClick={() => {
+                      handleVendorClick(row.AccountCode);
+                    }}
+                  >
+                    <td>{row.VendorName}</td>
+                    <td>{row.ContactNumber}</td>
+                    <td>{row.EmailAddress}</td>
+                    <td>{row.BillingAddress}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
 
         <Modal
           title="Transaction Details"

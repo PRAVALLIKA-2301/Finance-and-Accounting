@@ -7,6 +7,7 @@ import { IoMdAdd } from "react-icons/io";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { MdSearch } from "react-icons/md";
 
 const { Option } = Select;
 
@@ -88,7 +89,7 @@ const Payable = () => {
       <Dashboard />
       <div className="main--payable">
         <div className="navigation-indicator">
-          <IoMdHome /> / Dashboard
+          <IoMdHome /> / Payable
         </div>
 
         <div className="table-cont">
@@ -96,12 +97,14 @@ const Payable = () => {
             <p>Credits</p>
 
             <div className="table-box">
-              <div>
+              <div className="search-container">
+                <MdSearch className="search-icon" />
                 <input
                   type="text"
                   placeholder="Enter Account Number"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
+                  className="search-input"
                 />
               </div>
               <div>
