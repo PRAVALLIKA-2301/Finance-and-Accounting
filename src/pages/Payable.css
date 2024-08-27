@@ -1,27 +1,4 @@
-/* .nav-Cont {
-  position: fixed;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  margin: auto;
-  width: calc(100% - 270px);
-  margin-left: 270px;
-  background-color: black;
-  box-sizing: border-box;
-  top: 0;
-  left: 0;
-  z-index: 100;
-}
-.navbar {
-  margin-left: 10px;
-  color: white;
-  display: flex;
-  flex-direction: row;
-  text-align: left;
-  align-items: center;
-  font-size: 20px;
-} */
+
 
 .table-cont {
   position: relative;
@@ -134,7 +111,7 @@
   justify-content: start;
   gap: 3rem;
 
-  height: calc(95%);
+  height: calc(95% );
   padding: 1.6em 2rem;
 }
 

@@ -20,72 +20,11 @@ const Payable = () => {
 
   //
   const [isAddNewModalVisible, setIsAddNewModalVisible] = useState(false);
-  const [data, setData] = useState([
-    {
-      AccountCode: "AC12345",
-      AmountReceivable: 5000,
-      Category: "Office Supplies",
-      DueDate: "2024-09-15",
-      InvoiceDate: "2024-08-01",
-      InvoiceNumber: "INV001",
-      PaymentDate: "2024-08-05",
-      PaymentMode: "Bank Transfer",
-      PaymentStatus: "Paid",
-      UTR: "UTR123456",
-    },
-    {
-      AccountCode: "AC67890",
-      AmountReceivable: 15000,
-      Category: "Consulting Services",
-      DueDate: "2024-10-01",
-      InvoiceDate: "2024-09-01",
-      InvoiceNumber: "INV002",
-      PaymentDate: "2024-09-10",
-      PaymentMode: "Credit Card",
-      PaymentStatus: "Paid",
-      UTR: "UTR789012",
-    },
-    {
-      AccountCode: "AC54321",
-      AmountReceivable: 8000,
-      Category: "Software Licenses",
-      DueDate: "2024-09-20",
-      InvoiceDate: "2024-08-10",
-      InvoiceNumber: "INV003",
-      PaymentDate: "2024-08-15",
-      PaymentMode: "Bank Transfer",
-      PaymentStatus: "Pending",
-      UTR: "",
-    },
-    {
-      AccountCode: "AC98765",
-      AmountReceivable: 2000,
-      Category: "Training",
-      DueDate: "2024-09-30",
-      InvoiceDate: "2024-08-25",
-      InvoiceNumber: "INV004",
-      PaymentDate: "2024-08-28",
-      PaymentMode: "Cheque",
-      PaymentStatus: "Paid",
-      UTR: "UTR345678",
-    },
-    {
-      AccountCode: "AC11223",
-      AmountReceivable: 12000,
-      Category: "Marketing",
-      DueDate: "2024-10-10",
-      InvoiceDate: "2024-09-15",
-      InvoiceNumber: "INV005",
-      PaymentDate: "",
-      PaymentMode: "",
-      PaymentStatus: "Unpaid",
-      UTR: "",
-    },
-  ]);
+  const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredData = data.filter((row) => {
-    return row.AccountCode.toLowerCase().includes(searchQuery.toLowerCase());
+    return row.CName.toLowerCase().includes(searchQuery.toLowerCase());
   });
 
   // Function to submit new customer data
@@ -124,8 +63,10 @@ const Payable = () => {
   };
 
   // Function to fetch account details for a selected row
+  
 
   // Handle row click to show transaction details
+  
 
   // Handle modal close
   const handleCancel = () => {
