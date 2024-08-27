@@ -39,7 +39,7 @@
 .table-cont table {
   width: 100%;
   border-collapse: collapse;
-  overflow: hidden;
+  overflow-y: hidden;
   border-radius: 5px;
   /* margin-bottom: 200px; */
   border-radius: 15px;
@@ -95,6 +95,12 @@
 
   display: flex;
   gap: 0.6rem;
+}
+
+.table-box input {
+  padding: 7px;
+  border-radius: 7px;
+  border: 2px solid black;
 }
 .table-box button:hover {
   border-color: rgb(162, 156, 156);

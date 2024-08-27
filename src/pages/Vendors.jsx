@@ -11,6 +11,7 @@ const Payable = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
   const [isAddNewModalVisible, setIsAddNewModalVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleRowClick = (row) => {
     setSelectedRow(row);
@@ -67,6 +68,9 @@ const Payable = () => {
       billing: "678 Cedar St, City F",
     },
   ];
+  const filteredData = vendorData.filter((row) => {
+    return row.name.toLowerCase().includes(searchQuery.toLowerCase());
+  });
 
   return (
     <div className="acc-payable--section">
@@ -80,6 +84,12 @@ const Payable = () => {
           <div className="table--optns">
             <p>Vendors</p>
             <div className="table-box">
+              <input
+                type="text"
+                placeholder="Enter Vendor Name"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
               <button onClick={handleNewClick}>
                 <IoMdAdd className="add-icon" />
                 Add new
@@ -97,7 +107,7 @@ const Payable = () => {
               </tr>
             </thead>
             <tbody>
-              {vendorData.map((row, index) => (
+              {filteredData.map((row, index) => (
                 <tr key={index} onClick={() => handleRowClick(row)}>
                   <td>{row.name}</td>
                   <td>{row.contact}</td>

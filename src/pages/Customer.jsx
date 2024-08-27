@@ -11,6 +11,7 @@ const Payable = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
   const [isAddNewModalVisible, setIsAddNewModalVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleRowClick = (row) => {
     setSelectedRow(row);
@@ -87,6 +88,9 @@ const Payable = () => {
       cAddress: "abc",
     },
   ];
+  const filteredData = customerData.filter((row) => {
+    return row.cName.toLowerCase().includes(searchQuery.toLowerCase());
+  });
 
   return (
     <div className="acc-payable--section">
@@ -99,6 +103,15 @@ const Payable = () => {
         <div className="table-cont">
           <div className="table--optns">
             <p>Customers</p>
+
+            <div className="table-box">
+              <input
+                type="text"
+                placeholder="Enter Customer Name"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
             <div className="table-box">
               <button onClick={handleNewClick}>
                 <IoMdAdd className="add-icon" />
@@ -121,7 +134,7 @@ const Payable = () => {
               </tr>
             </thead>
             <tbody>
-              {customerData.map((row, index) => (
+              {filteredData.map((row, index) => (
                 <tr key={index} onClick={() => handleRowClick(row)}>
                   <td>{row.cName}</td>
                   <td>{row.cMail}</td>

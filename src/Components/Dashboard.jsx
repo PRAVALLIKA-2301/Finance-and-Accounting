@@ -16,7 +16,7 @@ const Dashboard = () => {
     <div className="dashLink-cont">
       {/* logo */}
       <div className="dashLink-logo">
-        <img src={logo} alt="" width={150} height={90} />
+        {/* <img src={logo} alt="" width={150} height={90} /> */}
         <hr />
       </div>
 
@@ -25,7 +25,7 @@ const Dashboard = () => {
       {/* menu's */}
       <ul className="nav-menus-ul">
         <li className="dashLink">
-          <NavLink exact to="/dashboard" activeClassName="active">
+          <NavLink exact to="/" activeClassName="active">
             <RxDashboard size={20} /> Dashboard
           </NavLink>
         </li>

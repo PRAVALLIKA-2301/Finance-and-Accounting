@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
-import "../Components/InvoiceBar.css";
 
 import {
   Chart as ChartJS,
@@ -87,14 +86,14 @@ const Piechart = () => {
   }, []);
 
   return (
-    <div className="Invoicechart-container">
+    <div className="chart-container">
       <div className="yearlyEmp">
         <Bar
           data={barData}
           options={{ maintainAspectRatio: false }}
           width={200}
           height={200}
-        /> 
+        />
       </div>
     </div>
   );

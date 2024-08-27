@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Pie, Bar } from "react-chartjs-2";
+import { Pie,  } from "react-chartjs-2";
 import "./Piechart.css";
 
 import {
@@ -33,20 +33,14 @@ const Piechart = () => {
         backgroundColor: [
           "#FF6384",
           "#36A2EB",
-          "#9966FF",
-          "#4BC0C0",
-          "#9966FF",
-          "#FF9F40",
-          "#FF6384",
+          "#4169e1",
+        
         ],
         hoverBackgroundColor: [
           "#FF6384",
           "#36A2EB",
-          "#9966FF",
-          "#4BC0C0",
-          "#9966FF",
-          "#FF9F40",
-          "#FF6384",
+          "#4169e1",
+        
         ],
       },
     ],

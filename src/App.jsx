@@ -1,4 +1,4 @@
-import Dashboard from "./Components/Dashboard.jsx";
+// import Dashboard from "./Components/Dashboard.jsx";
 import Payable from "./pages/Payable.jsx";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Receivable from "./pages/Receivable.jsx";
@@ -13,8 +13,7 @@ function App() {
     <div className="app">
       <Router>
         <Routes>
-          <Route path="/dashboard" element={<Dashboardd />} />
-          {/* <Route path="/" element={<Dashboardd />} /> */}
+          <Route path="/" element={<Dashboardd />} />
           <Route path="/customer" element={<Customer />} />
           <Route path="/Payable" element={<Payable />} />
           <Route path="/Receivable" element={<Receivable />} />
