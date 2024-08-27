@@ -16,53 +16,54 @@ const Ledger = () => {
 
   const ledgerData = [
     {
-      AccNo: "ACC-101",
-      Transaction: "payment to vendor",
-      date: "22-08-2024",
-      Debit: 20000,
-      Credit: 0,
-    },
-    {
+      date: "01-08-2024",
       AccNo: "ACC-102",
-      Transaction: "Both",
-      date: "21-08-2024",
-      Debit: 5000,
-      Credit: 3000,
+      Particulars: "payment to vendor vtsven1002",
+      Dr_or_Cr: "Dr",
+      Amount: "150000",
+      TDS: "0",
+      GST: "-75.00",
+      Settlement_value: "225000",
     },
     {
+      date: "05-08-2024",
       AccNo: "ACC-103",
-      Transaction: "payment from customer",
-      date: "20-08-2024",
-      Debit: 0,
-      Credit: 4000,
+      Particulars: "payment to vendor vtsven1003",
+      Dr_or_Cr: "Dr",
+      Amount: "80000",
+      TDS: "0",
+      GST: "-40.00",
+      Settlement_value: "120000",
     },
     {
+      date: "10-08-2024",
       AccNo: "ACC-104",
-      Transaction: "Both",
-      date: "19-08-2024",
-      Debit: 4000,
-      Credit: 40000,
+      Particulars: "payment to vendor vtsven1004",
+      Dr_or_Cr: "Dr",
+      Amount: "200000",
+      TDS: "0",
+      GST: "-100.00",
+      Settlement_value: "300000",
     },
     {
+      date: "15-08-2024",
       AccNo: "ACC-105",
-      Transaction: "payment to vendor",
-      date: "18-08-2024",
-      Debit: 20000,
-      Credit: 0,
+      Particulars: "payment to vendor vtsven1005",
+      Dr_or_Cr: "Dr",
+      Amount: "95000",
+      TDS: "0",
+      GST: "-47.50",
+      Settlement_value: "142500",
     },
     {
+      date: "20-08-2024",
       AccNo: "ACC-106",
-      Transaction: "payment to vendor",
-      date: "17-08-2024",
-      Debit: 6000,
-      Credit: 0,
-    },
-    {
-      AccNo: "ACC-107",
-      Transaction: "payment from customer",
-      date: "16-08-2024",
-      Debit: 0,
-      Credit: 100000,
+      Particulars: "payment to vendor vtsven1006",
+      Dr_or_Cr: "Dr",
+      Amount: "130000",
+      TDS: "0",
+      GST: "-65.00",
+      Settlement_value: "195000",
     },
   ];
 
@@ -167,21 +168,27 @@ const Ledger = () => {
           <table>
             <thead>
               <tr>
+                <th>Date of Transaction</th>
                 <th>Account No</th>
-                <th>Transaction</th>
-                <th>Date</th>
-                <th>Debits</th>
-                <th>Credits</th>
+                <th>Particulars</th>
+                <th>Dr/Cr</th>
+                <th>Actual Amount</th>
+                <th>TDS</th>
+                <th>GST</th>
+                <th>Settlement value</th>
               </tr>
             </thead>
             <tbody>
               {ledgerData.map((e, index) => (
                 <tr key={index}>
-                  <td>{e.AccNo}</td>
-                  <td>{e.Transaction}</td>
                   <td>{e.date}</td>
-                  <td>{e.Debit.toLocaleString()}</td>
-                  <td>{e.Credit.toLocaleString()}</td>
+                  <td>{e.AccNo}</td>
+                  <td>{e.Particulars}</td>
+                  <td>{e.Dr_or_Cr}</td>
+                  <td>{e.Amount}</td>
+                  <td>{e.TDS}</td>
+                  <td>{e.GST}</td>
+                  <td>{e.Settlement_value}</td>
                 </tr>
               ))}
             </tbody>
