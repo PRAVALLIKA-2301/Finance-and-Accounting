@@ -57,7 +57,7 @@ const Payable = () => {
   const handleFetch = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/Payable/allPayables`
+        `${process.env.REACT_APP_BACKEND_URL}api/Payable/allPayables`
       );
       setData(res.data);
     } catch (error) {
@@ -68,7 +68,10 @@ const Payable = () => {
 
   const handleSubmit = async (values) => {
     try {
-      await axios.post(`http://localhost:5000/api/Payable/addPayable`, values);
+      await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}api/Payable/addPayable`,
+        values
+      );
       toast.success("Data saved...", { position: "top-center" });
     } catch (error) {
       console.log(error);

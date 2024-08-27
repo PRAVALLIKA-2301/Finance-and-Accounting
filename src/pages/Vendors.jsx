@@ -7,6 +7,7 @@ import { IoMdAdd } from "react-icons/io";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { MdSearch } from "react-icons/md";
 
 const { Option } = Select;
 
@@ -49,7 +50,7 @@ const Vendor = () => {
   const handleFetch = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/vendor/allVendors`
+        `${process.env.REACT_APP_BACKEND_URL}api/vendor/allVendors`
       );
       setData(res.data);
     } catch (error) {
@@ -60,7 +61,10 @@ const Vendor = () => {
 
   const handleSubmit = async (values) => {
     try {
-      await axios.post(`http://localhost:5000/api/Vendor/addVendor`, values);
+      await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}api/Vendor/addVendor`,
+        values
+      );
       toast.success("Data is added...", { position: "top-center" });
     } catch (error) {
       console.log(error);
@@ -72,7 +76,7 @@ const Vendor = () => {
     try {
       // console.log("Account code:.............", AccountCode);
       const res = await axios.get(
-        `http://localhost:5000/api/Payable/payable/${AccountCode}`
+        `${process.env.REACT_APP_BACKEND_URL}api/Payable/payable/${AccountCode}`
       );
       // console.log(res.data);
       setSelectedRow(res.data);
@@ -101,9 +105,11 @@ const Vendor = () => {
             <p>Vendors</p>
             <div className="table-box">
               <div>
+                <MdSearch />
+
                 <input
                   type="text"
-                  placeholder="Enter Vendor Name"
+                  placeholder="Search Vendor "
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />

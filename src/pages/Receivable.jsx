@@ -57,7 +57,7 @@ const Payable = () => {
     try {
       // const res = await axios.get(`${process.env.REACT_APP_BACKEND}/api/receivable/allReceivables`);
       const res = await axios.get(
-        `http://localhost:5000/api/receivable/allReceivables`
+        `${process.env.REACT_APP_BACKEND_URL}api/receivable/allReceivables`
       );
       setData(res.data);
     } catch (error) {
@@ -70,7 +70,7 @@ const Payable = () => {
     try {
       // const res = await axios.post(`${process.env.REACT_APP_BACKEND}/api/receivable/addReceivable`, values);
       const res = await axios.post(
-        `http://localhost:5000/api/receivable/addReceivable`,
+        `${process.env.REACT_APP_BACKEND_URL}api/receivable/addReceivable`,
         values
       );
 

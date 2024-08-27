@@ -23,7 +23,7 @@ const Payable = () => {
   const handleSubmit = async (values) => {
     try {
       const res = await axios.post(
-        `http://localhost:5000/api/customer/addCustomer`,
+        `${process.env.REACT_APP_BACKEND_URL}api/customer/addCustomer`,
         values
       );
       toast.success("Customer details added successfully.", {
@@ -43,7 +43,7 @@ const Payable = () => {
   const handleFetchData = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/customer/allcustomers`
+        `${process.env.REACT_APP_BACKEND_URL}api/customer/allcustomers`
       );
       setData(res.data);
     } catch (error) {
@@ -58,7 +58,7 @@ const Payable = () => {
   const handleFetchAccountDetails = async (AccountCode) => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/receivable/accountDetails/${AccountCode}`
+        `${process.env.REACT_APP_BACKEND_URL}api/receivable/accountDetails/${AccountCode}`
       );
       return res.data;
     } catch (error) {
