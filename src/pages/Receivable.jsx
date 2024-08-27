@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, Button, Form, Input, DatePicker, Select } from "antd";
 import Dashboard from "../Components/Dashboard";
 import "../pages/Payable.css";
 import { IoMdHome } from "react-icons/io";
 import { IoMdAdd } from "react-icons/io";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const { Option } = Select;
 
@@ -12,8 +15,15 @@ const Payable = () => {
   const [selectedRow, setSelectedRow] = useState(null);
   const [isAddNewModalVisible, setIsAddNewModalVisible] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState("Paid");
+  const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
+  const filteredData = data.filter((row) => {
+    return (
+      row.AccountCode.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      row.Category.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  });
   const handleRowClick = (row) => {
     setSelectedRow(row);
     setIsModalVisible(true);
@@ -32,84 +42,48 @@ const Payable = () => {
     setIsAddNewModalVisible(false);
   };
 
-  const handleAddNewFinish = (values) => {
+  const handleAddNewFinish = async (values) => {
     console.log("New Data: ", values);
+    await handleSubmit(values);
     setIsAddNewModalVisible(false);
+    await handleFetch();
   };
 
   const handlePaymentStatusChange = (value) => {
     setPaymentStatus(value);
   };
-  const data = [
-    {
-      category: "Office supplies",
-      accountNo: "ACC-101",
-      customerName: "Pravallika",
-      invoiceNo: "INV-001",
-      invoiceDate: "23/04/2024",
-      paymentStatus: "Paid",
-      paymentMode: "Cash",
-      transactionDate: "22/04/2024",
-      UTR: "UTR4567898",
-      dueDate: "30/08/2024",
-      dueAmount: "80,000",
-    },
-    {
-      category: "Transportation",
-      accountNo: "ACC-102",
-      customerName: "Charan",
 
-      invoiceNo: "INV-002",
-      invoiceDate: "23/04/2024",
-      paymentStatus: "Paid",
-      paymentMode: "Bank Transfer",
-      transactionDate: "22/04/2024",
-      UTR: "UTR4567899",
-      dueDate: "30/08/2024",
-      dueAmount: "60,000",
-    },
-    {
-      category: "Salaries",
-      accountNo: "ACC-101",
-      customerName: "koti",
+  const handleFetch = async () => {
+    try {
+      // const res = await axios.get(`${process.env.REACT_APP_BACKEND}/api/receivable/allReceivables`);
+      const res = await axios.get(
+        `http://localhost:5000/api/receivable/allReceivables`
+      );
+      setData(res.data);
+    } catch (error) {
+      console.log(error);
+      toast.error("Error while fetching....", { position: "top-center" });
+    }
+  };
 
-      invoiceNo: "INV-003",
-      invoiceDate: "23/04/2024",
-      paymentStatus: "Unpaid",
-      dateToday: "25/04/2024",
-      dueDate: "30/08/2024",
-      dueAmount: "30,000",
-    },
-    {
-      category: "Marketing",
-      accountNo: "ACC-104",
-      customerName: "Devi",
+  const handleSubmit = async (values) => {
+    try {
+      // const res = await axios.post(`${process.env.REACT_APP_BACKEND}/api/receivable/addReceivable`, values);
+      const res = await axios.post(
+        `http://localhost:5000/api/receivable/addReceivable`,
+        values
+      );
 
-      invoiceNo: "INV-004",
-      invoiceDate: "23/04/2024",
-      paymentStatus: "Unpaid",
-      dueDate: "30/08/2024",
-      dueAmount: "1,00,000",
-    },
-    {
-      category: "Insurance",
-      accountNo: "ACC-101",
-      customerName: "Durga",
+      toast.success("Details added ...", { position: "top-center" });
+    } catch (error) {
+      console.log(error);
+      toast.error("Error while adding the data...", { position: "top-center" });
+    }
+  };
 
-      invoiceNo: "INV-006",
-      invoiceDate: "23/04/2024",
-      paymentStatus: "Unpaid",
-      dueDate: "30/08/2024",
-      dueAmount: "50,000",
-    },
-  ];
-  const filteredData = data.filter((row) => {
-    return (
-      row.accountNo.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      row.category.toLowerCase().includes(searchQuery.toLowerCase())
-      // row.dueDate.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  });
+  useEffect(() => {
+    handleFetch();
+  }, []);
 
   return (
     <div className="acc-payable--section">
@@ -122,20 +96,21 @@ const Payable = () => {
         <div className="table-cont">
           <div className="table--optns">
             <p>Debits</p>
-
             <div className="table-box">
-              <input
-                type="text"
-                placeholder="search Account number"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-            <div className="table-box">
-              <button onClick={handleNewClick}>
-                <IoMdAdd className="add-icon" />
-                Add new
-              </button>
+              <div>
+                <input
+                  type="text"
+                  placeholder="Enter Account Number"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+              <div>
+                <button onClick={handleNewClick}>
+                  <IoMdAdd className="add-icon" />
+                  Add new
+                </button>
+              </div>
             </div>
           </div>
 
@@ -154,13 +129,13 @@ const Payable = () => {
             <tbody>
               {filteredData.map((row, index) => (
                 <tr key={index} onClick={() => handleRowClick(row)}>
-                  <td>{row.category}</td>
-                  <td>{row.accountNo}</td>
-                  <td>{row.invoiceNo}</td>
-                  <td>{row.invoiceDate}</td>
-                  <td>{row.dueAmount}</td>
-                  <td>{row.dueDate}</td>
-                  <td>{row.paymentStatus}</td>
+                  <td>{row.Category}</td>
+                  <td>{row.AccountCode}</td>
+                  <td>{row.InvoiceNumber}</td>
+                  <td>{row.InvoiceDate}</td>
+                  <td>{row.AmountReceivable}</td>
+                  <td>{row.DueDate}</td>
+                  <td>{row.PaymentStatus}</td>
                 </tr>
               ))}
             </tbody>
@@ -177,21 +152,21 @@ const Payable = () => {
             </Button>,
           ]}
         >
-          {selectedRow && selectedRow.paymentStatus === "Paid" && (
+          {selectedRow && selectedRow.PaymentStatus === "Paid" && (
             <div>
-              <p>Account No: {selectedRow.accountNo}</p>
-              <p>Category: {selectedRow.category}</p>
-              <p>Invoice Date: {selectedRow.invoiceDate}</p>
-              <p>Amount Paid: {selectedRow.dueAmount}</p>
-              <p>Transaction Date: {selectedRow.transactionDate}</p>
-              <p>Payment Mode: {selectedRow.paymentMode}</p>
+              <p>Account No: {selectedRow.AccountCode}</p>
+              <p>Category: {selectedRow.Category}</p>
+              <p>Invoice Date: {selectedRow.InvoiceDate}</p>
+              <p>Amount Paid: {selectedRow.AmountReceivable}</p>
+              <p>Transaction Date: {selectedRow.PaymentDate}</p>
+              <p>Payment Mode: {selectedRow.PaymentMode}</p>
             </div>
           )}
-          {selectedRow && selectedRow.paymentStatus === "Unpaid" && (
+          {selectedRow && selectedRow.PaymentStatus === "Unpaid" && (
             <div>
-              <p>Amount need to be Paid: {selectedRow.dueAmount}</p>
-              <p>Due Date: {selectedRow.dueDate}</p>
-              <p>Payment Status: {selectedRow.paymentStatus}</p>
+              <p>Amount need to be Paid: {selectedRow.AmountReceivable}</p>
+              <p>Due Date: {selectedRow.DueDate}</p>
+              <p>Payment Status: {selectedRow.PaymentStatus}</p>
             </div>
           )}
         </Modal>
@@ -206,7 +181,7 @@ const Payable = () => {
             <div className="abc" style={{ display: "flex", gap: "3rem" }}>
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
-                  name="category"
+                  name="Category"
                   label="Category"
                   rules={[{ required: true, message: "Please enter category" }]}
                 >
@@ -215,7 +190,7 @@ const Payable = () => {
               </div>
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
-                  name="accountNo"
+                  name="AccountCode"
                   label="Account No"
                   rules={[
                     { required: true, message: "Please enter account number" },
@@ -228,7 +203,7 @@ const Payable = () => {
             <div className="abc" style={{ display: "flex", gap: "3rem" }}>
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
-                  name="invoiceNo"
+                  name="InvoiceNumber"
                   label="Invoice No"
                   rules={[
                     { required: true, message: "Please enter invoice number" },
@@ -239,7 +214,7 @@ const Payable = () => {
               </div>
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
-                  name="invoiceDate"
+                  name="InvoiceDate"
                   label="Invoice Date"
                   rules={[
                     { required: true, message: "Please select invoice date" },
@@ -252,7 +227,7 @@ const Payable = () => {
             <div className="abc" style={{ display: "flex", gap: "3rem" }}>
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
-                  name="paymentStatus"
+                  name="PaymentStatus"
                   label="Payment Status"
                   rules={[
                     { required: true, message: "Please select payment status" },
@@ -267,7 +242,7 @@ const Payable = () => {
               {paymentStatus === "Paid" && (
                 <div style={{ flexGrow: "1" }}>
                   <Form.Item
-                    name="paymentMode"
+                    name="PaymentMode"
                     label="Payment Mode"
                     rules={[
                       {
@@ -289,7 +264,7 @@ const Payable = () => {
               <div className="abc" style={{ display: "flex", gap: "3rem" }}>
                 <div style={{ flexGrow: "1" }}>
                   <Form.Item
-                    name="transactionDate"
+                    name="PaymentDate"
                     label="Transaction Date"
                     rules={[
                       {
@@ -308,7 +283,21 @@ const Payable = () => {
                     rules={[
                       {
                         required: true,
-                        message: "Please select UTR Number",
+                        message: "Please enter UTR Number",
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+                </div>
+                <div style={{ flexGrow: "1" }}>
+                  <Form.Item
+                    name="AmountReceivable"
+                    label="Amount Paid"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please enter amount total amount",
                       },
                     ]}
                   >
@@ -321,7 +310,7 @@ const Payable = () => {
               <div className="abc" style={{ display: "flex", gap: "3rem" }}>
                 <div style={{ flexGrow: "1" }}>
                   <Form.Item
-                    name="dueAmount"
+                    name="AmountReceivable"
                     label="Due Amount"
                     rules={[
                       { required: true, message: "Please enter due amount" },
@@ -332,7 +321,7 @@ const Payable = () => {
                 </div>
                 <div style={{ flexGrow: "1" }}>
                   <Form.Item
-                    name="dueDate"
+                    name="DueDate"
                     label="Due Date"
                     rules={[
                       { required: true, message: "Please select due date" },
@@ -352,6 +341,7 @@ const Payable = () => {
           </Form>
         </Modal>
       </div>
+      <ToastContainer />
     </div>
   );
 };

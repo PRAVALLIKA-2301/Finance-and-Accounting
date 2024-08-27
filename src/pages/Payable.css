@@ -77,6 +77,12 @@
 .table-cont td {
   text-align: center;
 }
+.table-box {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+}
 
 .table-box button {
   padding: 7px;
@@ -97,15 +103,19 @@
   gap: 0.6rem;
 }
 
-.table-box input {
-  padding: 7px;
-  border-radius: 7px;
-  border: 2px solid black;
-}
 .table-box button:hover {
   border-color: rgb(162, 156, 156);
 }
 
+.table-box input {
+  padding: 7px;
+  border-radius: 7px;
+  border: 2px solid black;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -ms-border-radius: 7px;
+  -o-border-radius: 7px;
+}
 .acc-payable--section {
   display: flex;
   justify-content: start;
@@ -128,6 +138,7 @@
 
   display: flex;
   justify-content: space-between;
+  /* flex-direction: column; */
   /* background-color: #f4f4f4; */
   /* margin-bottom: 3rem; */
 }

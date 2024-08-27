@@ -1,96 +1,107 @@
-import React, { useState } from "react";
-import { Modal, Button, Form, Input, DatePicker, Select } from "antd";
+import React, { useEffect, useState } from "react";
+import { Modal, Button, Form, Input } from "antd";
 import Dashboard from "../Components/Dashboard";
 import "../pages/Payable.css";
 import { IoMdHome } from "react-icons/io";
 import { IoMdAdd } from "react-icons/io";
-
-const { Option } = Select;
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const Payable = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
   const [isAddNewModalVisible, setIsAddNewModalVisible] = useState(false);
+  const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const handleRowClick = (row) => {
-    setSelectedRow(row);
+  const filteredData = data.filter((row) => {
+    return row.CName.toLowerCase().includes(searchQuery.toLowerCase());
+  });
+
+  // Function to submit new customer data
+  const handleSubmit = async (values) => {
+    try {
+      const res = await axios.post(
+        `http://localhost:5000/api/customer/addCustomer`,
+        values
+      );
+      toast.success("Customer details added successfully.", {
+        position: "top-center",
+      });
+      await handleFetchData(); // Fetch updated data after adding a new customer
+    } catch (error) {
+      console.log("Error in adding customer: ", error);
+      toast.error(
+        "Error in adding customer. Please check the details and try again.",
+        { position: "top-center" }
+      );
+    }
+  };
+
+  // Function to fetch all customers' data
+  const handleFetchData = async () => {
+    try {
+      const res = await axios.get(
+        `http://localhost:5000/api/customer/allcustomers`
+      );
+      setData(res.data);
+    } catch (error) {
+      console.log("Error in fetching customers data: ", error);
+      toast.error("Error while fetching customers data.", {
+        position: "top-center",
+      });
+    }
+  };
+
+  // Function to fetch account details for a selected row
+  const handleFetchAccountDetails = async (AccountCode) => {
+    try {
+      const res = await axios.get(
+        `http://localhost:5000/api/receivable/accountDetails/${AccountCode}`
+      );
+      return res.data;
+    } catch (error) {
+      console.log("Error in fetching account details: ", error);
+      toast.error("Error while fetching account details.", {
+        position: "top-center",
+      });
+    }
+  };
+
+  // Handle row click to show transaction details
+  const handleRowClick = async (row) => {
+    const data = await handleFetchAccountDetails(row.AccountCode);
+    setSelectedRow(data);
     setIsModalVisible(true);
   };
 
+  // Handle modal close
   const handleCancel = () => {
     setIsModalVisible(false);
     setSelectedRow(null);
   };
 
+  // Handle opening of "Add New Customer" modal
   const handleNewClick = () => {
     setIsAddNewModalVisible(true);
   };
 
+  // Handle closing of "Add New Customer" modal
   const handleAddNewCancel = () => {
     setIsAddNewModalVisible(false);
   };
 
-  const handleAddNewFinish = (values) => {
-    console.log("New Data: ", values);
+  // Handle submission of new customer data
+  const handleAddNewFinish = async (values) => {
+    await handleSubmit(values);
     setIsAddNewModalVisible(false);
   };
 
-  const customerData = [
-    {
-      cName: "Pravallika",
-      cMail: "abc@gmail.com",
-      cPhone: "1234567890",
-      cCountry: "India",
-      cState: "Andhra Pradesh",
-      cCity: "Vizianagaram",
-      cPin: "535004",
-      cAddress: "abc",
-    },
-    {
-      cName: "Charan",
-      cMail: "abc@gmail.com",
-      cPhone: "1234567890",
-      cCountry: "India",
-      cState: "Andhra Pradesh",
-      cCity: "Vizianagaram",
-      cPin: "535004",
-      cAddress: "abc",
-    },
-    {
-      cName: "Koti",
-      cMail: "abc@gmail.com",
-      cPhone: "1234567890",
-      cCountry: "India",
-      cState: "Andhra Pradesh",
-      cCity: "Vizianagaram",
-      cPin: "535004",
-      cAddress: "abc",
-    },
-    {
-      cName: "Durga",
-      cMail: "abc@gmail.com",
-      cPhone: "1234567890",
-      cCountry: "India",
-      cState: "Andhra Pradesh",
-      cCity: "Vizianagaram",
-      cPin: "535004",
-      cAddress: "abc",
-    },
-    {
-      cName: "Devi",
-      cMail: "abc@gmail.com",
-      cPhone: "1234567890",
-      cCountry: "India",
-      cState: "Andhra Pradesh",
-      cCity: "Vizianagaram",
-      cPin: "535004",
-      cAddress: "abc",
-    },
-  ];
-  const filteredData = customerData.filter((row) => {
-    return row.cName.toLowerCase().includes(searchQuery.toLowerCase());
-  });
+  // Fetch data on component mount
+  useEffect(() => {
+    handleFetchData();
+  }, []);
 
   return (
     <div className="acc-payable--section">
@@ -105,18 +116,20 @@ const Payable = () => {
             <p>Customers</p>
 
             <div className="table-box">
-              <input
-                type="text"
-                placeholder="Enter Customer Name"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-            <div className="table-box">
-              <button onClick={handleNewClick}>
-                <IoMdAdd className="add-icon" />
-                Add new
-              </button>
+              <div>
+                <input
+                  type="text"
+                  placeholder="Enter Customer Name"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+              <div>
+                <button onClick={handleNewClick}>
+                  <IoMdAdd className="add-icon" />
+                  Add new
+                </button>
+              </div>
             </div>
           </div>
 
@@ -124,26 +137,20 @@ const Payable = () => {
             <thead>
               <tr>
                 <th>Name</th>
-                <th> Mail</th>
-                <th> Phone No</th>
-                <th> Country</th>
-                <th> State</th>
-                {/* <th> City</th>
-                <th> Pin</th>
-                <th>Address</th> */}
+                <th>Mail</th>
+                <th>Phone No</th>
+                <th>Country</th>
+                <th>State</th>
               </tr>
             </thead>
             <tbody>
               {filteredData.map((row, index) => (
                 <tr key={index} onClick={() => handleRowClick(row)}>
-                  <td>{row.cName}</td>
-                  <td>{row.cMail}</td>
-                  <td>{row.cPhone}</td>
-                  <td>{row.cCountry}</td>
-                  <td>{row.cState}</td>
-                  {/* <td>{row.cCity}</td>
-                  <td>{row.cPin}</td>
-                  <td>{row.cAddress}</td> */}
+                  <td>{row.CName}</td>
+                  <td>{row.CMail}</td>
+                  <td>{row.Cphone}</td>
+                  <td>{row.Ccountry}</td>
+                  <td>{row.Cstate}</td>
                 </tr>
               ))}
             </tbody>
@@ -162,18 +169,15 @@ const Payable = () => {
         >
           {selectedRow && (
             <div>
-              <p> Customer Account No: {selectedRow.accountNo}</p>
-              <p>Transaction Date: {selectedRow.transactionDate}</p>
-              <p>Invoice Date: {selectedRow.invoiceDate}</p>
-              <p>Category: {selectedRow.category}</p>
-              <p>Payment Mode: {selectedRow.paymentMode}</p>
-              {selectedRow.paymentMode === "EMI" && (
+              <p>Customer Account No: {selectedRow.AccountCode}</p>
+              <p>Transaction Date: {selectedRow.PaymentDate}</p>
+              <p>Invoice Date: {selectedRow.InvoiceDate}</p>
+              <p>Category: {selectedRow.Category}</p>
+              <p>Payment Mode: {selectedRow.PaymentMode}</p>
+              {selectedRow.PaymentStatus === "Unpaid" && (
                 <>
-                  <p>Due Date: 24/12/2024{selectedRow.dueDate}</p>
-                  <p>
-                    Amount Due: 2,00,000
-                    {selectedRow.amountDue}
-                  </p>
+                  <p>Due Date: {selectedRow.DueDate}</p>
+                  <p>Amount Due: {selectedRow.AmountReceivable}</p>
                 </>
               )}
             </div>
@@ -181,7 +185,7 @@ const Payable = () => {
         </Modal>
 
         <Modal
-          title="Add New Customer "
+          title="Add New Customer"
           visible={isAddNewModalVisible}
           onCancel={handleAddNewCancel}
           footer={null}
@@ -190,7 +194,7 @@ const Payable = () => {
             <div className="abc" style={{ display: "flex", gap: "3rem" }}>
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
-                  name="Customer Name"
+                  name="CName"
                   label="Customer Name"
                   rules={[{ required: true, message: "Please enter Name" }]}
                 >
@@ -199,7 +203,7 @@ const Payable = () => {
               </div>
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
-                  name="accountNo"
+                  name="AccountCode"
                   label="Account No"
                   rules={[
                     { required: true, message: "Please enter account number" },
@@ -212,53 +216,41 @@ const Payable = () => {
             <div className="abc" style={{ display: "flex", gap: "3rem" }}>
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
-                  name="E-mail"
+                  name="CMail"
                   label="E-mail"
-                  rules={[{ required: true, message: "Please enter Emmail" }]}
+                  rules={[{ required: true, message: "Please enter Email" }]}
                 >
                   <Input />
                 </Form.Item>
               </div>
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
-                  name="Phone No"
+                  name="Cphone"
                   label="Phone No"
                   rules={[
                     { required: true, message: "Please enter Phone Number" },
                   ]}
                 >
                   <Input />
-                  {/* <DatePicker /> */}
                 </Form.Item>
               </div>
             </div>
             <div className="abc" style={{ display: "flex", gap: "3rem" }}>
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
-                  name="Country"
+                  name="Ccountry"
                   label="Country"
                   rules={[{ required: true, message: "Please enter Country" }]}
                 >
                   <Input />
-                  {/* <Select>
-                    <Option value="Paid">Paid</Option>
-                    <Option value="Unpaid">Unpaid</Option>
-                    <Option value="Pending">Pending</Option>
-                  </Select> */}
                 </Form.Item>
               </div>
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
-                  name="State"
+                  name="Cstate"
                   label="State"
                   rules={[{ required: true, message: "Please enter State" }]}
                 >
-                  {/* <Select>
-                    <Option value="Cash">Cash</Option>
-                    <Option value="Credit Card">Credit Card</Option>
-                    <Option value="Bank Transfer">Bank Transfer</Option>
-                    <Option value="EMI">EMI</Option>
-                  </Select> */}
                   <Input />
                 </Form.Item>
               </div>
@@ -266,40 +258,35 @@ const Payable = () => {
             <div className="abc" style={{ display: "flex", gap: "3rem" }}>
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
-                  name="City"
+                  name="Ccity"
                   label="City"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter City",
-                    },
-                  ]}
+                  rules={[{ required: true, message: "Please enter City" }]}
                 >
                   <Input />
                 </Form.Item>
               </div>
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
-                  name="Address"
+                  name="Caddress"
                   label="Address"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please enter Address",
-                    },
-                  ]}
+                  rules={[{ required: true, message: "Please enter Address" }]}
+                >
+                  <Input />
+                </Form.Item>
+              </div>
+              <div style={{ flexGrow: "1" }}>
+                <Form.Item
+                  name="Cpin"
+                  label="Pin code"
+                  rules={[{ required: true, message: "Please enter Pin code" }]}
                 >
                   <Input />
                 </Form.Item>
               </div>
             </div>
-            <div>
+            <div style={{ textAlign: "center" }}>
               <Form.Item>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  onFinish={handleAddNewFinish}
-                >
+                <Button type="primary" htmlType="submit">
                   Submit
                 </Button>
               </Form.Item>
@@ -307,6 +294,7 @@ const Payable = () => {
           </Form>
         </Modal>
       </div>
+      <ToastContainer />
     </div>
   );
 };

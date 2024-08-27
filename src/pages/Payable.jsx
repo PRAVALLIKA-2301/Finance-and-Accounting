@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, Button, Form, Input, DatePicker, Select } from "antd";
 import Dashboard from "../Components/Dashboard";
 import "../pages/Payable.css";
 import { IoMdHome } from "react-icons/io";
 import { IoMdAdd } from "react-icons/io";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 const { Option } = Select;
 
@@ -12,7 +15,15 @@ const Payable = () => {
   const [selectedRow, setSelectedRow] = useState(null);
   const [isAddNewModalVisible, setIsAddNewModalVisible] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState("Paid");
+  const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredData = data.filter((row) => {
+    return (
+      row.AccountCode.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      row.Category.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  });
 
   const handleRowClick = (row) => {
     setSelectedRow(row);
@@ -32,72 +43,43 @@ const Payable = () => {
     setIsAddNewModalVisible(false);
   };
 
-  const handleAddNewFinish = (values) => {
+  const handleAddNewFinish = async (values) => {
     console.log("New Data: ", values);
+    await handleSubmit(values); // Add await here
+    await handleFetch(); // Add await here
     setIsAddNewModalVisible(false);
   };
 
   const handlePaymentStatusChange = (value) => {
     setPaymentStatus(value);
   };
-  const data = [
-    {
-      category: "Office supplies",
-      accountNo: "ACC-101",
-      invoiceNo: "INV-001",
-      invoiceDate: "23/04/2023",
-      dueDate: "30/08/2024",
-      dueAmount: "3,00,000",
-      paymentStatus: "Paid",
-      paymentMode: "Cash",
-      transactionDate: "22/04/2023",
-    },
-    {
-      category: "Transportation",
-      accountNo: "ACC-102",
-      invoiceNo: "INV-002",
-      invoiceDate: "23/04/2023",
-      dueDate: "30/08/2024",
-      dueAmount: "1,00,000",
-      paymentStatus: "Paid",
-      paymentMode: "Bank Transfer",
-      transactionDate: "22/04/2023",
-    },
-    {
-      category: "Salaries",
-      accountNo: "ACC-103",
-      invoiceNo: "INV-003",
-      invoiceDate: "23/04/2023",
-      dueDate: "30/08/2024",
-      dueAmount: "10,00,000",
-      paymentStatus: "Unpaid",
-    },
-    {
-      category: "Marketing",
-      accountNo: "ACC-101",
-      invoiceNo: "INV-004",
-      invoiceDate: "23/04/2023",
-      dueDate: "30/08/2024",
-      dueAmount: "80,000",
-      paymentStatus: "Unpaid",
-    },
-    {
-      category: "Insurance",
-      accountNo: "ACC-103",
-      invoiceNo: "INV-006",
-      invoiceDate: "23/04/2023",
-      dueDate: "30/08/2024",
-      dueAmount: "50,000",
-      paymentStatus: "Unpaid",
-    },
-  ];
-  const filteredData = data.filter((row) => {
-    return (
-      row.accountNo.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      row.category.toLowerCase().includes(searchQuery.toLowerCase())
-      // row.dueDate.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  });
+
+  const handleFetch = async () => {
+    try {
+      const res = await axios.get(
+        `http://localhost:5000/api/Payable/allPayables`
+      );
+      setData(res.data);
+    } catch (error) {
+      console.log(error);
+      toast.error("Error while fetching data...", { position: "top-center" });
+    }
+  };
+
+  const handleSubmit = async (values) => {
+    try {
+      await axios.post(`http://localhost:5000/api/Payable/addPayable`, values);
+      toast.success("Data saved...", { position: "top-center" });
+    } catch (error) {
+      console.log(error);
+      toast.error("Error while saving the data...", { position: "top-center" });
+    }
+  };
+
+  useEffect(() => {
+    handleFetch();
+  }, []);
+
   return (
     <div className="acc-payable--section">
       <Dashboard />
@@ -109,19 +91,22 @@ const Payable = () => {
         <div className="table-cont">
           <div className="table--optns">
             <p>Credits</p>
+
             <div className="table-box">
-              <input
-                type="text"
-                placeholder="search Account number"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-            <div className="table-box">
-              <button onClick={handleNewClick}>
-                <IoMdAdd className="add-icon" />
-                Add new
-              </button>
+              <div>
+                <input
+                  type="text"
+                  placeholder="Enter Account Number"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+              <div>
+                <button onClick={handleNewClick}>
+                  <IoMdAdd className="add-icon" />
+                  Add new
+                </button>
+              </div>
             </div>
           </div>
 
@@ -140,13 +125,13 @@ const Payable = () => {
             <tbody>
               {filteredData.map((row, index) => (
                 <tr key={index} onClick={() => handleRowClick(row)}>
-                  <td>{row.category}</td>
-                  <td>{row.accountNo}</td>
-                  <td>{row.invoiceNo}</td>
-                  <td>{row.invoiceDate}</td>
-                  <td>{row.dueAmount}</td>
-                  <td>{row.dueDate}</td>
-                  <td>{row.paymentStatus}</td>
+                  <td>{row.Category}</td>
+                  <td>{row.AccountCode}</td>
+                  <td>{row.InvoiceNumber}</td>
+                  <td>{row.InvoiceDate}</td>
+                  <td>{row.AmountDue}</td>
+                  <td>{row.DueDate}</td>
+                  <td>{row.PaymentStatus}</td>
                 </tr>
               ))}
             </tbody>
@@ -165,19 +150,22 @@ const Payable = () => {
         >
           {selectedRow && selectedRow.paymentStatus === "Paid" && (
             <div>
-              <p>Account No: {selectedRow.accountNo}</p>
-              <p>Category: {selectedRow.category}</p>
-              <p>Invoice Date: {selectedRow.invoiceDate}</p>
-              <p>Amount Paid: {selectedRow.dueAmount}</p>
-              <p>Transaction Date: {selectedRow.transactionDate}</p>
-              <p>Payment Mode: {selectedRow.paymentMode}</p>
-            </div>
-          )}
-          {selectedRow && selectedRow.paymentStatus === "Unpaid" && (
-            <div>
-              <p>Amount need to be Paid: {selectedRow.dueAmount}</p>
-              <p>Due Date: {selectedRow.dueDate}</p>
-              <p>Payment Status: {selectedRow.paymentStatus}</p>
+              <p>Account No: {selectedRow.AccountCode}</p>
+              <p>Category: {selectedRow.Category}</p>
+              <p>Invoice Date: {selectedRow.InvoiceDate}</p>
+              <p>Amount Due: {selectedRow.AmountDue}</p>
+              {selectedRow.PaymentStatus === "Paid" && (
+                <>
+                  <p>Transaction Date: {selectedRow.PaymentDate}</p>
+                  <p>Payment Mode: {selectedRow.PaymentMode}</p>
+                </>
+              )}
+              <p>Payment Status: {selectedRow.PaymentStatus}</p>
+              {selectedRow.PaymentStatus === "Unpaid" && (
+                <>
+                  <p>Due Date: {selectedRow.DueDate}</p>
+                </>
+              )}
             </div>
           )}
         </Modal>
@@ -192,7 +180,7 @@ const Payable = () => {
             <div className="abc" style={{ display: "flex", gap: "3rem" }}>
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
-                  name="category"
+                  name="Category"
                   label="Category"
                   rules={[{ required: true, message: "Please enter category" }]}
                 >
@@ -201,7 +189,7 @@ const Payable = () => {
               </div>
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
-                  name="accountNo"
+                  name="AccountCode"
                   label="Account No"
                   rules={[
                     { required: true, message: "Please enter account number" },
@@ -214,7 +202,7 @@ const Payable = () => {
             <div className="abc" style={{ display: "flex", gap: "3rem" }}>
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
-                  name="invoiceNo"
+                  name="InvoiceNumber"
                   label="Invoice No"
                   rules={[
                     { required: true, message: "Please enter invoice number" },
@@ -225,7 +213,7 @@ const Payable = () => {
               </div>
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
-                  name="invoiceDate"
+                  name="InvoiceDate"
                   label="Invoice Date"
                   rules={[
                     { required: true, message: "Please select invoice date" },
@@ -238,7 +226,7 @@ const Payable = () => {
             <div className="abc" style={{ display: "flex", gap: "3rem" }}>
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
-                  name="paymentStatus"
+                  name="PaymentStatus"
                   label="Payment Status"
                   rules={[
                     { required: true, message: "Please select payment status" },
@@ -253,7 +241,7 @@ const Payable = () => {
               {paymentStatus === "Paid" && (
                 <div style={{ flexGrow: "1" }}>
                   <Form.Item
-                    name="paymentMode"
+                    name="PaymentMode"
                     label="Payment Mode"
                     rules={[
                       {
@@ -272,26 +260,39 @@ const Payable = () => {
               )}
             </div>
             {paymentStatus === "Paid" && (
-              <div>
-                <Form.Item
-                  name="transactionDate"
-                  label="Transaction Date"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Please select transaction date",
-                    },
-                  ]}
-                >
-                  <DatePicker />
-                </Form.Item>
+              <div className="abc" style={{ display: "flex", gap: "3rem" }}>
+                <div>
+                  <Form.Item
+                    name="PaymentDate"
+                    label="Transaction Date"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Please select transaction date",
+                      },
+                    ]}
+                  >
+                    <DatePicker />
+                  </Form.Item>
+                </div>
+                <div style={{ flexGrow: "1" }}>
+                  <Form.Item
+                    name="AmountDue"
+                    label="Paid Amount"
+                    rules={[
+                      { required: true, message: "Please enter due amount" },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+                </div>
               </div>
             )}
             {paymentStatus === "Unpaid" && (
               <div className="abc" style={{ display: "flex", gap: "3rem" }}>
                 <div style={{ flexGrow: "1" }}>
                   <Form.Item
-                    name="dueDate"
+                    name="DueDate"
                     label="Due Date"
                     rules={[
                       { required: true, message: "Please select due date" },
@@ -302,7 +303,7 @@ const Payable = () => {
                 </div>
                 <div style={{ flexGrow: "1" }}>
                   <Form.Item
-                    name="dueAmount"
+                    name="AmountDue"
                     label="Due Amount"
                     rules={[
                       { required: true, message: "Please enter due amount" },
@@ -315,13 +316,16 @@ const Payable = () => {
             )}
 
             <div style={{ textAlign: "center" }}>
-              <Button type="primary" htmlType="submit">
-                Submit
-              </Button>
+              <Form.Item>
+                <Button type="primary" htmlType="submit">
+                  Submit
+                </Button>
+              </Form.Item>
             </div>
           </Form>
         </Modal>
       </div>
+      <ToastContainer />
     </div>
   );
 };
