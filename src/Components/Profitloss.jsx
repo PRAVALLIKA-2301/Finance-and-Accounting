@@ -31,14 +31,14 @@ function CashFlowChart() {
       {
         label: "Cash Inflows",
         data: [30000, 40000, 35000, 50000, 45000, 60000],
-        borderColor: "#36A2EB",
+        borderColor: "#4169e1",
         backgroundColor: "rgba(75, 192, 192, 0.2)",
         fill: true,
       },
       {
         label: "Cash Outflows",
         data: [20000, 25000, 22000, 30000, 28000, 35000],
-        borderColor: "#FFCE56",
+        borderColor: "#36A2EB",
         backgroundColor: "rgba(255, 99, 132, 0.2)",
         fill: true,
       },

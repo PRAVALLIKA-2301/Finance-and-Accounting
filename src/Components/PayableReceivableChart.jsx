@@ -27,12 +27,12 @@ function PayableReceivableChart() {
       {
         label: "Account Payables",
         data: [12000, 15000, 13000, 18000, 16000, 19000],
-        backgroundColor: "#36A2EB",
+        backgroundColor: "#4169e1",
       },
       {
         label: "Account Receivables",
         data: [10000, 14000, 11000, 17000, 15000, 20000],
-        backgroundColor: "#FFCE56",
+        backgroundColor: "#36A2EB",
       },
     ],
   };

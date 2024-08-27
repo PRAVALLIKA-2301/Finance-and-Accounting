@@ -100,6 +100,15 @@
   border-color: rgb(162, 156, 156);
 }
 
+.table-box input {
+  padding: 7px;
+  border-radius: 7px;
+  border: 2px solid black;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -ms-border-radius: 7px;
+  -o-border-radius: 7px;
+}
 .acc-payable--section {
   display: flex;
   justify-content: start;
