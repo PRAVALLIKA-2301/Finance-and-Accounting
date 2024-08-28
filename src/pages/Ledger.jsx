@@ -174,7 +174,7 @@ const Ledger = () => {
             <thead>
               <tr>
                 <th>Date of Transaction</th>
-                <th>Particulars</th>
+                <th>Transaction Details</th>
                 <th>Account No</th>
                 <th>Invoice Number</th>
                 <th>Debit</th>

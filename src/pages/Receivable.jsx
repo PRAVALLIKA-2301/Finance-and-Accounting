@@ -5,6 +5,8 @@ import "../pages/Payable.css";
 import { IoMdHome } from "react-icons/io";
 import { IoMdAdd } from "react-icons/io";
 import { ToastContainer, toast } from "react-toastify";
+import moment from "moment";
+
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { MdSearch } from "react-icons/md";
@@ -44,7 +46,18 @@ const Payable = () => {
   };
 
   const handleAddNewFinish = async (values) => {
-    console.log("New Data: ", values);
+    const formattedInvoiceDate = new Date(values.InvoiceDate);
+    formattedInvoiceDate.setHours(23, 59, 59, 999);
+    values.InvoiceDate = formattedInvoiceDate.toLocaleDateString("en-CA");
+    if (values.PaymentStatus === "Paid") {
+      const formattedTransactionDate = new Date(values.PaymentDate);
+      formattedTransactionDate.setHours(23, 59, 59, 999);
+      values.PaymentDate = formattedTransactionDate
+    } else if (values.PaymentStatus === "Unpaid") {
+      const formattedDueDate = new Date(values.DueDate);
+      formattedDueDate.setHours(23, 59, 59, 999);
+      values.DueDate = formattedDueDate.toLocaleDateString("en-CA")
+    }
     await handleSubmit(values);
     setIsAddNewModalVisible(false);
     await handleFetch();
@@ -61,6 +74,7 @@ const Payable = () => {
         `${process.env.REACT_APP_BACKEND_URL}api/receivable/allReceivables`
       );
       setData(res.data);
+      console.log(res.data)
     } catch (error) {
       console.log(error);
       toast.error("Error while fetching....", { position: "top-center" });
@@ -71,8 +85,6 @@ const Payable = () => {
     try {
       // const res = await axios.post(`${process.env.REACT_APP_BACKEND}/api/receivable/addReceivable`, values);
       console.log(values);
-      
-      console.log(values.InvoiceDate.getDate());
       const res = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}api/receivable/addReceivable`,
         values
@@ -123,11 +135,11 @@ const Payable = () => {
           <table>
             <thead>
               <tr>
-                <th>Category</th>
+                <th>Customer Name</th>
                 <th>Account no</th>
                 <th>Invoice no</th>
                 <th>Invoice date</th>
-                <th>Due Amount</th>
+                <th> Amount</th>
                 <th>Due Date</th>
                 <th>Payment status</th>
               </tr>
@@ -188,7 +200,7 @@ const Payable = () => {
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
                   name="Category"
-                  label="Category"
+                  label="Customer Name"
                   rules={[{ required: true, message: "Please enter category" }]}
                 >
                   <Input />
