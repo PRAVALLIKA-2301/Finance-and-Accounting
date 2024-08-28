@@ -66,16 +66,7 @@ const Piechart = () => {
     },
   };
 
-  const barData = {
-    labels: ["2018", "2019", "2020", "2021", "2022", "2023"],
-    datasets: [
-      {
-        label: "Invoices Generated yearly",
-        data: [30, 50, 45, 60, 70, 65],
-        backgroundColor: "#36A2EB",
-      },
-    ],
-  };
+
 
   useEffect(() => {
     const finalEmpCount = 500;
