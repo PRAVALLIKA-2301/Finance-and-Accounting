@@ -182,7 +182,7 @@ const Vendor = () => {
             <div>
               {selectedRow.PaymentStatus === "Paid" && (
                 <>
-                  <p> Vendors Account No: {selectedRow.AccountCode}</p>
+                  <p>Vendors Account No: {selectedRow.AccountCode}</p>
                   <p>Category: {selectedRow.Category}</p>
                   <p>Transaction Date: {selectedRow.PaymentDate}</p>
                   <p>Invoice Date: {selectedRow.InvoiceDate}</p>

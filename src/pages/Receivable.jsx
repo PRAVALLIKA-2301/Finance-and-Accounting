@@ -16,9 +16,7 @@ const Payable = () => {
   const [selectedRow, setSelectedRow] = useState(null);
   const [isAddNewModalVisible, setIsAddNewModalVisible] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState("Paid");
-  const [data, setData] = useState([
-    
-  ]);
+  const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredData = data.filter((row) => {
@@ -72,6 +70,9 @@ const Payable = () => {
   const handleSubmit = async (values) => {
     try {
       // const res = await axios.post(`${process.env.REACT_APP_BACKEND}/api/receivable/addReceivable`, values);
+      console.log(values);
+      
+      console.log(values.InvoiceDate.getDate());
       const res = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}api/receivable/addReceivable`,
         values
