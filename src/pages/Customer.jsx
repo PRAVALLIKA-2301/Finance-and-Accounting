@@ -34,6 +34,7 @@ const Payable = () => {
         `${process.env.REACT_APP_BACKEND_URL}api/customer/addCustomer`,
         values
       );
+      console.log(values);
       toast.success("Customer details added successfully.", {
         position: "top-center",
       });
@@ -63,10 +64,8 @@ const Payable = () => {
   };
 
   // Function to fetch account details for a selected row
-  
 
   // Handle row click to show transaction details
-  
 
   // Handle modal close
   const handleCancel = () => {

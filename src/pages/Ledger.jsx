@@ -18,52 +18,57 @@ const Ledger = () => {
     {
       date: "01-08-2024",
       AccNo: "ACC-102",
+      invoiceNo: "INV-001",
       Particulars: "payment to vendor vtsven1002",
-      Dr_or_Cr: "Dr",
-      Amount: "150000",
+      Debit: "20000",
+      credit: "-",
       TDS: "0",
       GST: "-75.00",
       Settlement_value: "225000",
     },
     {
-      date: "05-08-2024",
-      AccNo: "ACC-103",
-      Particulars: "payment to vendor vtsven1003",
-      Dr_or_Cr: "Dr",
-      Amount: "80000",
-      TDS: "0",
-      GST: "-40.00",
-      Settlement_value: "120000",
-    },
-    {
       date: "10-08-2024",
       AccNo: "ACC-104",
+      invoiceNo: "INV-003",
       Particulars: "payment to vendor vtsven1004",
-      Dr_or_Cr: "Dr",
-      Amount: "200000",
-      TDS: "0",
+      Debit: "200000",
+      credit: "",
+      TDS: "10000",
       GST: "-100.00",
-      Settlement_value: "300000",
+      Settlement_value: "290000",
     },
     {
       date: "15-08-2024",
       AccNo: "ACC-105",
-      Particulars: "payment to vendor vtsven1005",
-      Dr_or_Cr: "Dr",
-      Amount: "95000",
-      TDS: "0",
+      invoiceNo: "INV-004",
+      Particulars: "refund from vendor vtsven1005",
+      Debit: "",
+      credit: "95000",
+      TDS: "4750",
       GST: "-47.50",
-      Settlement_value: "142500",
+      Settlement_value: "137750",
     },
     {
       date: "20-08-2024",
       AccNo: "ACC-106",
+      invoiceNo: "INV-005",
       Particulars: "payment to vendor vtsven1006",
-      Dr_or_Cr: "Dr",
-      Amount: "130000",
-      TDS: "0",
+      Debit: "130000",
+      credit: "",
+      TDS: "6500",
       GST: "-65.00",
-      Settlement_value: "195000",
+      Settlement_value: "188500",
+    },
+    {
+      date: "25-08-2024",
+      AccNo: "ACC-107",
+      invoiceNo: "INV-006",
+      Particulars: "refund from vendor vtsven1007",
+      Debit: "",
+      credit: "75000",
+      TDS: "3750",
+      GST: "-37.50",
+      Settlement_value: "108750",
     },
   ];
 
@@ -169,23 +174,26 @@ const Ledger = () => {
             <thead>
               <tr>
                 <th>Date of Transaction</th>
-                <th>Account No</th>
                 <th>Particulars</th>
-                <th>Dr/Cr</th>
-                <th>Actual Amount</th>
+                <th>Account No</th>
+                <th>Invoice Number</th>
+                <th>Debit</th>
+                <th>Credit</th>
                 <th>TDS</th>
                 <th>GST</th>
-                <th>Settlement value</th>
+                <th>Net Settlement value</th>
               </tr>
             </thead>
             <tbody>
               {ledgerData.map((e, index) => (
                 <tr key={index}>
                   <td>{e.date}</td>
-                  <td>{e.AccNo}</td>
                   <td>{e.Particulars}</td>
-                  <td>{e.Dr_or_Cr}</td>
-                  <td>{e.Amount}</td>
+
+                  <td>{e.AccNo}</td>
+                  <td>{e.invoiceNo}</td>
+                  <td>{e.Debit}</td>
+                  <td>{e.credit}</td>
                   <td>{e.TDS}</td>
                   <td>{e.GST}</td>
                   <td>{e.Settlement_value}</td>
