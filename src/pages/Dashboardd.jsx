@@ -19,6 +19,7 @@ function Dashboardd() {
   return (
     <div className="dashboard-container">
       <Sidebar />
+
       <div className="dashboard-content">
         {/* Cards Section */}
 
@@ -74,9 +75,9 @@ function Dashboardd() {
             <p>
               <span className="detail-label">Active Vendors:</span> 35
             </p>
-            <p>
+            {/* <p>
               <span className="detail-label">Pending Invoices:</span> 10
-            </p>
+            </p> */}
           </div>
         </div>
 
@@ -107,6 +108,8 @@ function Dashboardd() {
             <InvoicesBar />
           </div>
         </div>
+
+        {/*  */}
       </div>
     </div>
   );

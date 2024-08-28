@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Pie,  } from "react-chartjs-2";
+import { Pie } from "react-chartjs-2";
 import "./Piechart.css";
 
 import {
@@ -22,6 +22,17 @@ ChartJS.register(
 );
 
 const Piechart = () => {
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  const handleDateChange = (e) => {
+    if (e.target.name === "startDate") {
+      setStartDate(e.target.value);
+    } else if (e.target.name === "endDate") {
+      setEndDate(e.target.value);
+    }
+  };
+
   const [employeeCount, setEmployeeCount] = useState(0);
   const [activeCount, setActiveCount] = useState(0);
 
@@ -30,18 +41,8 @@ const Piechart = () => {
     datasets: [
       {
         data: [300, 200, 120],
-        backgroundColor: [
-          "#FF6384",
-          "#36A2EB",
-          "#4169e1",
-        
-        ],
-        hoverBackgroundColor: [
-          "#FF6384",
-          "#36A2EB",
-          "#4169e1",
-        
-        ],
+        backgroundColor: ["#FF6384", "#36A2EB", "#4169e1"],
+        hoverBackgroundColor: ["#FF6384", "#36A2EB", "#4169e1"],
       },
     ],
   };
@@ -109,6 +110,27 @@ const Piechart = () => {
 
   return (
     <div className="chart-container">
+      <div className="date-filter">
+        <label>
+          Start Date:
+          <input
+            type="date"
+            name="startDate"
+            value={startDate}
+            onChange={handleDateChange}
+          />
+        </label>
+        <label>
+          End Date:
+          <input
+            type="date"
+            name="endDate"
+            value={endDate}
+            onChange={handleDateChange}
+          />
+        </label>
+      </div>
+
       <div className="empCards">
         <div className="empCard">
           <h5 className="header"> Invoices Count</h5>
