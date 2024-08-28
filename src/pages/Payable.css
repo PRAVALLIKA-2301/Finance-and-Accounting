@@ -1,5 +1,3 @@
-
-
 .table-cont {
   position: relative;
   width: calc(100vw - 400px);
@@ -54,6 +52,7 @@
 .table-cont td {
   text-align: center;
 }
+
 .search-container {
   position: relative;
   display: flex;
@@ -111,7 +110,7 @@
   justify-content: start;
   gap: 3rem;
 
-  height: calc(95% );
+  height: calc(95%);
   padding: 1.6em 2rem;
 }
 
@@ -125,12 +124,8 @@
 
 .table--optns {
   padding: 2rem 2rem 2rem 2rem;
-
   display: flex;
   justify-content: space-between;
-  /* flex-direction: column; */
-  /* background-color: #f4f4f4; */
-  /* margin-bottom: 3rem; */
 }
 
 .table--optns > p {
@@ -169,17 +164,13 @@
   font-size: 1.6rem;
   font-weight: 400;
   color: rgb(52, 71, 103);
-
   margin-bottom: 3rem;
 }
 
 .table--optns {
   padding: 2rem 2rem 2rem 2rem;
-
   display: flex;
   justify-content: space-between;
-  /* background-color: #f4f4f4; */
-  /* margin-bottom: 3rem; */
 }
 
 .table--optns > p {
