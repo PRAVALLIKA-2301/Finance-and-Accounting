@@ -58,6 +58,17 @@ const Dashboard = () => {
             <PiNotebookThin size={20} /> Ledger
           </NavLink>
         </li>
+
+        <li className="dashLinke">
+          <a
+            href="https://b2b-erp.vercel.app/dashboard"
+            className="dashLinkk"
+            exact
+            activeClassName="active"
+          >
+            Back to home
+          </a>
+        </li>
       </ul>
     </div>
   );

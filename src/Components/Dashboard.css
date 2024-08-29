@@ -22,24 +22,21 @@
   margin-bottom: 30px;
   margin-top: 20px;
 }
+
 .dashLink {
-  /* flex-grow: 1; */
-  /* width: 100%; */
   font-size: 1.4rem;
   font-weight: 400;
-  /* padding: 1.8rem 0px; */
   border-radius: 6px;
-
   color: white;
   display: flex;
   flex-direction: row;
   justify-content: center;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 5px;
   cursor: pointer;
-  /* width: 100px; */
   transition: background-color 0.3s ease;
 }
+
 .dashLink:hover {
   background-color: rgba(143, 142, 142, 0.527);
 }
@@ -70,17 +67,36 @@
   ) !important; */
 }
 
+.dashLinkk:link,
+.dashLinkk:visited {
+  text-align: center;
+  color: white;
+  font-size: 1.4rem;
+}
+
+.dashLinke {
+  margin-top: 2rem;
+  list-style: none;
+  text-align: center;
+  text-decoration: none;
+}
+
 .dashLink > a {
   text-decoration: none;
   color: #f4f4f4;
   width: 100%;
   height: 100%;
   border-radius: 6px;
+
   padding: 1.8rem 3rem;
   text-align: left;
   display: flex;
   align-items: center;
   gap: 1.6rem;
+}
+
+.nav-menus-ul {
+  margin-top: 1.4rem;
 }
 
 .dashLink > .active {
