@@ -19,11 +19,74 @@ const Payable = () => {
   const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredData = data.filter((row) => {
-    return (
-      row.AccountCode.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      row.Category.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+  const payableData = [
+    {
+      category: "Office Supplies",
+      AccountNo: "ACC-001",
+      InvoiceNo: "INV-1001",
+      Invoicedate: "01-08-2024",
+      DueDate: "11-08-2024",
+      DueAmount: "1500.00",
+      PaymentStatus: "Pending",
+    },
+    {
+      category: "Consulting Services",
+      AccountNo: "ACC-002",
+      InvoiceNo: "INV-1002",
+      Invoicedate: "05-08-2024",
+      DueDate: "-",
+      DueAmount: "5000.00",
+      PaymentStatus: "Paid",
+    },
+    {
+      category: "IT Equipment",
+      AccountNo: "ACC-003",
+      InvoiceNo: "INV-1003",
+      Invoicedate: "10-08-2024",
+      DueDate: "20-08-2024",
+      DueAmount: "12000.00",
+      PaymentStatus: "Pending",
+    },
+    {
+      category: "Marketing",
+      AccountNo: "ACC-004",
+      InvoiceNo: "INV-1004",
+      Invoicedate: "15-08-2024",
+      DueDate: "25-08-2024",
+      DueAmount: "8000.00",
+      PaymentStatus: "In Progress",
+    },
+    {
+      category: "Software Licenses",
+      AccountNo: "ACC-005",
+      InvoiceNo: "INV-1005",
+      Invoicedate: "20-08-2024",
+      DueDate: "30-08-2024",
+      DueAmount: "3000.00",
+      PaymentStatus: "Pending",
+    },
+    {
+      category: "Transportation",
+      AccountNo: "ACC-006",
+      InvoiceNo: "INV-1006",
+      Invoicedate: "25-08-2024",
+      DueDate: "-",
+      DueAmount: "4500.00",
+      PaymentStatus: "Paid",
+    },
+    {
+      category: "Utilities",
+      AccountNo: "ACC-007",
+      InvoiceNo: "INV-1007",
+      Invoicedate: "30-08-2024",
+      DueDate: "09-09-2024",
+      DueAmount: "2000.00",
+      PaymentStatus: "In Progress",
+    },
+  ];
+
+  const filteredData = payableData.filter((row) => {
+    return row.category.toLowerCase().includes(searchQuery.toLowerCase());
   });
 
   const handleRowClick = (row) => {
@@ -63,7 +126,7 @@ const Payable = () => {
       setData(res.data);
     } catch (error) {
       console.log(error);
-      toast.error("Error while fetching data...", { position: "top-center" });
+      // toast.error("Error while fetching data...", { position: "top-center" });
     }
   };
 
@@ -76,7 +139,7 @@ const Payable = () => {
       toast.success("Data saved...", { position: "top-center" });
     } catch (error) {
       console.log(error);
-      toast.error("Error while saving the data...", { position: "top-center" });
+      // toast.error("Error while saving the data...", { position: "top-center" });
     }
   };
 
@@ -94,14 +157,14 @@ const Payable = () => {
 
         <div className="table-cont">
           <div className="table--optns">
-            <p>Credits</p>
+            <p>Debits</p>
 
             <div className="table-box">
               <div className="search-container">
                 <MdSearch className="search-icon" />
                 <input
                   type="text"
-                  placeholder="Enter Account Number"
+                  placeholder="Search Category "
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="search-input"
@@ -123,19 +186,19 @@ const Payable = () => {
                 <th>Account no</th>
                 <th>Invoice no</th>
                 <th>Invoice date</th>
-                <th>Due Amount</th>
+                <th>Amount</th>
                 <th>Due Date</th>
                 <th>Payment status</th>
               </tr>
             </thead>
             <tbody>
               {filteredData.map((row, index) => (
-                <tr key={index} onClick={() => handleRowClick(row)}>
-                  <td>{row.Category}</td>
-                  <td>{row.AccountCode}</td>
-                  <td>{row.InvoiceNumber}</td>
-                  <td>{row.InvoiceDate}</td>
-                  <td>{row.AmountDue}</td>
+                <tr key={index}>
+                  <td>{row.category}</td>
+                  <td>{row.AccountNo}</td>
+                  <td>{row.InvoiceNo}</td>
+                  <td>{row.Invoicedate}</td>
+                  <td>{row.DueAmount}</td>
                   <td>{row.DueDate}</td>
                   <td>{row.PaymentStatus}</td>
                 </tr>

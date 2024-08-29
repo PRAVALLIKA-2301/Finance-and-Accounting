@@ -24,7 +24,7 @@ const Payable = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredData = data.filter((row) => {
-    return row.CName.toLowerCase().includes(searchQuery.toLowerCase());
+    return row.Company_Name.toLowerCase().includes(searchQuery.toLowerCase());
   });
 
   // Function to submit new customer data
@@ -52,9 +52,10 @@ const Payable = () => {
   const handleFetchData = async () => {
     try {
       const res = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}api/customer/allcustomers`
+        `${process.env.REACT_APP_BACKEND_URL}user/get-users`
       );
       setData(res.data);
+      console.log("userdata", res.data);
     } catch (error) {
       console.log("Error in fetching customers data: ", error);
       toast.error("Error while fetching customers data.", {
@@ -145,25 +146,18 @@ const Payable = () => {
               <thead>
                 <tr>
                   <th>Name</th>
-                  <th>Mail</th>
+                  <th>E-Mail</th>
                   <th>Phone No</th>
-                  <th>Country</th>
-                  <th>State</th>
+                  <th>GST No</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredData.map((row, index) => (
-                  <tr
-                    key={index}
-                    onClick={() => {
-                      handleCustomerClick(row.AccountCode);
-                    }}
-                  >
-                    <td>{row.CName}</td>
-                    <td>{row.CMail}</td>
-                    <td>{row.Cphone}</td>
-                    <td>{row.Ccountry}</td>
-                    <td>{row.Cstate}</td>
+                  <tr key={index}>
+                    <td>{row.Company_Name}</td>
+                    <td>{row.Email}</td>
+                    <td>{row.Mobile_No}</td>
+                    <td>{row.GST_No}</td>
                   </tr>
                 ))}
               </tbody>

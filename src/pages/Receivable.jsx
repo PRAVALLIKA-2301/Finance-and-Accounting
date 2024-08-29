@@ -16,17 +16,11 @@ const Payable = () => {
   const [selectedRow, setSelectedRow] = useState(null);
   const [isAddNewModalVisible, setIsAddNewModalVisible] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState("Paid");
-  const [data, setData] = useState([
-    
-  ]);
+  const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [ordersData, setOrdersData] = useState([]);
+  const [transactionsData, setTransactionsData] = useState([]);
 
-  const filteredData = data.filter((row) => {
-    return (
-      row.AccountCode.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      row.Category.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  });
   const handleRowClick = (row) => {
     setSelectedRow(row);
     setIsModalVisible(true);
@@ -46,7 +40,18 @@ const Payable = () => {
   };
 
   const handleAddNewFinish = async (values) => {
-    console.log("New Data: ", values);
+    const formattedInvoiceDate = new Date(values.InvoiceDate);
+    formattedInvoiceDate.setHours(23, 59, 59, 999);
+    values.InvoiceDate = formattedInvoiceDate.toLocaleDateString("en-CA");
+    if (values.PaymentStatus === "Paid") {
+      const formattedTransactionDate = new Date(values.PaymentDate);
+      formattedTransactionDate.setHours(23, 59, 59, 999);
+      values.PaymentDate = formattedTransactionDate;
+    } else if (values.PaymentStatus === "Unpaid") {
+      const formattedDueDate = new Date(values.DueDate);
+      formattedDueDate.setHours(23, 59, 59, 999);
+      values.DueDate = formattedDueDate.toLocaleDateString("en-CA");
+    }
     await handleSubmit(values);
     setIsAddNewModalVisible(false);
     await handleFetch();
@@ -58,20 +63,82 @@ const Payable = () => {
 
   const handleFetch = async () => {
     try {
-      // const res = await axios.get(`${process.env.REACT_APP_BACKEND}/api/receivable/allReceivables`);
-      const res = await axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}api/receivable/allReceivables`
-      );
-      setData(res.data);
+      // Fetching both transactions and orders data
+      const [transactionsRes, ordersRes] = await Promise.all([
+        axios.get(
+          "https://b2b-backend-uvpc.onrender.com/user/get-transactions"
+        ),
+        axios.get("https://b2b-backend-uvpc.onrender.com/user/getorders"),
+      ]);
+
+      const transactionsData = transactionsRes.data;
+      const ordersData = ordersRes.data;
+
+      // Create a map for transactions data by order_id
+      const transactionsMap = new Map();
+      transactionsData.forEach((transaction) => {
+        transactionsMap.set(transaction.order_id, transaction);
+      });
+
+      // Prepare the merged data
+      const mergedData = ordersData.map((order) => {
+        const transaction = transactionsMap.get(order.order_id);
+
+        // Convert the date_of_order to a proper date format
+        const [day, month, year] = order.date_of_order.split("/");
+        const orderDate = new Date(`${year}-${month}-${day}`);
+
+        // Validate the orderDate
+        if (isNaN(orderDate)) {
+          console.error(`Invalid date: ${order.date_of_order}`);
+          return null; // or handle the invalid date as needed
+        }
+
+        // Add 10 days to the date
+        const dueDate = new Date(orderDate);
+        dueDate.setDate(dueDate.getDate() + 10);
+
+        // console.log("duedate", dueDate);
+
+        return {
+          CustomerName: order.companyname,
+          AccountNumber: transaction ? transaction.accountId : "N/A",
+          InvoiceNumber: `INV${order.order_id.replace("B2BHUB", "")}`,
+          InvoiceDate: order.date_of_order,
+          Amount: transaction ? transaction.amount : "N/A",
+          DueDate: dueDate.toLocaleDateString("en-GB"), // ISO format (YYYY-MM-DD)
+          PaymentStatus:
+            order.payment_status === 1
+              ? order.payment_verified === 1
+                ? "Paid"
+                : "In Progress"
+              : "Pending",
+        };
+      });
+
+      // Filter out any null entries due to invalid dates
+      const filteredMergedData = mergedData.filter((data) => data !== null);
+
+      setData(filteredMergedData);
+      console.log("mergedata", filteredMergedData);
+      setOrdersData(ordersData);
+      setTransactionsData(transactionsData);
+      // console.log("Data fetched and merged successfully:", filteredMergedData);
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching data:", error);
       toast.error("Error while fetching....", { position: "top-center" });
     }
   };
 
+  //filter using Customer Name
+
+  const filterData = data.filter((row) => {
+    return row.CustomerName.toLowerCase().includes(searchQuery.toLowerCase());
+  });
+
   const handleSubmit = async (values) => {
     try {
-      // const res = await axios.post(`${process.env.REACT_APP_BACKEND}/api/receivable/addReceivable`, values);
+      console.log(values);
       const res = await axios.post(
         `${process.env.REACT_APP_BACKEND_URL}api/receivable/addReceivable`,
         values
@@ -98,13 +165,13 @@ const Payable = () => {
 
         <div className="table-cont">
           <div className="table--optns">
-            <p>Debits</p>
+            <p>Credits</p>
             <div className="table-box">
               <div className="search-container">
                 <MdSearch className="search-icon" />
                 <input
                   type="text"
-                  placeholder="Search Vendor"
+                  placeholder="Search Category"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="search-input"
@@ -122,23 +189,23 @@ const Payable = () => {
           <table>
             <thead>
               <tr>
-                <th>Category</th>
-                <th>Account no</th>
-                <th>Invoice no</th>
-                <th>Invoice date</th>
-                <th>Due Amount</th>
+                <th>Customer Name</th>
+                <th>Account Number</th>
+                <th>Invoice Number</th>
+                <th>Invoice Date</th>
+                <th>Amount</th>
                 <th>Due Date</th>
-                <th>Payment status</th>
+                <th>Payment Status</th>
               </tr>
             </thead>
             <tbody>
-              {filteredData.map((row, index) => (
+              {filterData.map((row, index) => (
                 <tr key={index} onClick={() => handleRowClick(row)}>
-                  <td>{row.Category}</td>
-                  <td>{row.AccountCode}</td>
+                  <td>{row.CustomerName}</td>
+                  <td>{row.AccountNumber}</td>
                   <td>{row.InvoiceNumber}</td>
                   <td>{row.InvoiceDate}</td>
-                  <td>{row.AmountReceivable}</td>
+                  <td>{row.Amount}</td>
                   <td>{row.DueDate}</td>
                   <td>{row.PaymentStatus}</td>
                 </tr>
@@ -157,19 +224,11 @@ const Payable = () => {
             </Button>,
           ]}
         >
-          {selectedRow && selectedRow.PaymentStatus === "Paid" && (
+          {selectedRow && (
             <div>
-              <p>Account No: {selectedRow.AccountCode}</p>
-              <p>Category: {selectedRow.Category}</p>
+              <p>Account No: {selectedRow.AccountNumber}</p>
               <p>Invoice Date: {selectedRow.InvoiceDate}</p>
-              <p>Amount Paid: {selectedRow.AmountReceivable}</p>
-              <p>Transaction Date: {selectedRow.PaymentDate}</p>
-              <p>Payment Mode: {selectedRow.PaymentMode}</p>
-            </div>
-          )}
-          {selectedRow && selectedRow.PaymentStatus === "Unpaid" && (
-            <div>
-              <p>Amount need to be Paid: {selectedRow.AmountReceivable}</p>
+              <p>Amount: {selectedRow.Amount}</p>
               <p>Due Date: {selectedRow.DueDate}</p>
               <p>Payment Status: {selectedRow.PaymentStatus}</p>
             </div>
@@ -187,7 +246,7 @@ const Payable = () => {
               <div style={{ flexGrow: "1" }}>
                 <Form.Item
                   name="Category"
-                  label="Category"
+                  label="Customer Name"
                   rules={[{ required: true, message: "Please enter category" }]}
                 >
                   <Input />
@@ -223,6 +282,28 @@ const Payable = () => {
                   label="Invoice Date"
                   rules={[
                     { required: true, message: "Please select invoice date" },
+                  ]}
+                >
+                  <DatePicker />
+                </Form.Item>
+              </div>
+            </div>
+            <div className="abc" style={{ display: "flex", gap: "3rem" }}>
+              <div style={{ flexGrow: "1" }}>
+                <Form.Item
+                  name="Amount"
+                  label="Amount"
+                  rules={[{ required: true, message: "Please enter amount" }]}
+                >
+                  <Input />
+                </Form.Item>
+              </div>
+              <div style={{ flexGrow: "1" }}>
+                <Form.Item
+                  name="DueDate"
+                  label="Due Date"
+                  rules={[
+                    { required: true, message: "Please select due date" },
                   ]}
                 >
                   <DatePicker />

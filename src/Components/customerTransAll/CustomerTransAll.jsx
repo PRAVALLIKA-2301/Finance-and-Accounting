@@ -13,7 +13,6 @@ function CustomerTransAll({ setCustomerAllTrans, customerID }) {
   const handleBackBtn = () => {
     setCustomerAllTrans(false);
   };
-
   useEffect(() => {
     const handleFetchAccountDetails = async () => {
       try {
