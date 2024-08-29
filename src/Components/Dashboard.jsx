@@ -1,8 +1,6 @@
 import React from "react";
 import "../Components/Dashboard.css";
-import logo from "../assets/ERP_logo.png";
-// import logo from "../assets/logo.jpeg";
-// import { useNavigate } from "react-router";
+import logo from "../assets/syncroFlow.png";
 import { NavLink } from "react-router-dom";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { RxDashboard } from "react-icons/rx";
@@ -16,7 +14,13 @@ const Dashboard = () => {
     <div className="dashLink-cont">
       {/* logo */}
       <div className="dashLink-logo">
-        {/* <img src={logo} alt="" width={150} height={90} /> */}
+        <img
+          style={{ mixBlendMode: "color-dodge" }}
+          src={logo}
+          alt=""
+          width={150}
+          height={90}
+        />
         <hr />
       </div>
 

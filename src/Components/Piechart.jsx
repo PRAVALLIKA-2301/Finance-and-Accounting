@@ -54,37 +54,6 @@ const Piechart = () => {
     },
   };
 
-  useEffect(() => {
-    const finalEmpCount = 500;
-    const finalActiveCount = 150;
-    let currentCount = 0;
-    const empIncrmt = Math.ceil(finalEmpCount / 50);
-
-    const counterInterval = setInterval(() => {
-      currentCount += empIncrmt;
-      if (currentCount >= finalEmpCount) {
-        setEmployeeCount(finalEmpCount);
-        clearInterval(counterInterval);
-      } else {
-        setEmployeeCount(currentCount);
-      }
-    }, 50);
-
-    const increment = Math.ceil(finalActiveCount / 50);
-
-    const counterActInterval = setInterval(() => {
-      currentCount += increment;
-      if (currentCount >= finalActiveCount) {
-        setActiveCount(finalActiveCount);
-        clearInterval(counterActInterval);
-      } else {
-        setActiveCount(currentCount);
-      }
-    }, 50);
-
-    return () => clearInterval(counterInterval, counterActInterval);
-  }, []);
-
   return (
     <div className="chart-container">
       <div className="empCards">
