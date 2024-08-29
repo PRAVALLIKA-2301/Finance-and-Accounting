@@ -8,6 +8,9 @@ import MonthlySummaryChart from "../Components/Monthlysummary";
 import Piechart from "../Components/Piechart";
 import InvoicesBar from "../Components/InvoicesBar";
 import { NavLink } from "react-router-dom";
+
+import { FaRupeeSign } from "react-icons/fa";
+
 import {
   FaDollarSign,
   FaFileInvoice,
@@ -27,7 +30,7 @@ function Dashboardd() {
           {/* Payables Card */}
           <div className="card">
             <div className="icon">
-              <FaDollarSign />
+              <FaRupeeSign />
             </div>
             <h3>Payables</h3>
             <p>

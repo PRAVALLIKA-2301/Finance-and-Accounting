@@ -41,10 +41,24 @@ const Piechart = () => {
         display: false, // Disable the default legend
       },
     },
+    scales: {
+      x: {
+        grid: {
+          display: false, // Remove grid lines on the x-axis
+        },
+      },
+      y: {
+        grid: {
+          display: false, // Remove grid lines on the y-axis
+        },
+      },
+    },
+    barPercentage: 0.7, // Reduce bar width (default is 0.9)
+    categoryPercentage: 0.7, // Reduce space taken by bars in each category
   };
 
   const barData = {
-    labels: ["2018", "2019", "2020", "2021", "2022", "2023"],
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "June"],
     datasets: [
       {
         label: "Invoices Generated yearly",
@@ -82,18 +96,16 @@ const Piechart = () => {
       }
     }, 50);
 
-    return () => clearInterval(counterInterval, counterActInterval);
+    return () => {
+      clearInterval(counterInterval);
+      clearInterval(counterActInterval);
+    };
   }, []);
 
   return (
     <div className="chart-container">
       <div className="yearlyEmp">
-        <Bar
-          data={barData}
-          options={{ maintainAspectRatio: false }}
-          width={200}
-          height={200}
-        />
+        <Bar data={barData} options={options} width={200} height={200} />
       </div>
     </div>
   );

@@ -53,6 +53,18 @@ function CashFlowChart() {
         text: "Cash Flow Overview",
       },
     },
+    scales: {
+      x: {
+        grid: {
+          display: false, // Disable grid lines on the x-axis
+        },
+      },
+      y: {
+        grid: {
+          display: false, // Disable grid lines on the y-axis
+        },
+      },
+    },
   };
 
   return (

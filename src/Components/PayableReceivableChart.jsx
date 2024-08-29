@@ -48,6 +48,18 @@ function PayableReceivableChart() {
         text: "Account Payables vs Receivables",
       },
     },
+    scales: {
+      x: {
+        grid: {
+          display: false, // Disable grid lines on the x-axis
+        },
+      },
+      y: {
+        grid: {
+          display: false, // Disable grid lines on the y-axis
+        },
+      },
+    },
   };
 
   return (
