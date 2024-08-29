@@ -14,7 +14,7 @@
 .table-cont table {
   width: 100%;
   border-collapse: collapse;
-  overflow-y: scroll;
+  overflow: hidden;
   border-radius: 5px;
   /* margin-bottom: 200px; */
   border-radius: 15px;
@@ -22,6 +22,7 @@
 
 .table-cont thead {
   background-color: white;
+  /* position: sticky; */
 }
 
 .table-cont th,

@@ -23,9 +23,9 @@ const Payable = () => {
   const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // const filteredData = data.filter((row) => {
-  //   return row.CName.toLowerCase().includes(searchQuery.toLowerCase());
-  // });
+  const filteredData = data.filter((row) => {
+    return row.Company_Name.toLowerCase().includes(searchQuery.toLowerCase());
+  });
 
   // Function to submit new customer data
   const handleSubmit = async (values) => {
@@ -152,13 +152,8 @@ const Payable = () => {
                 </tr>
               </thead>
               <tbody>
-                {data.map((row, index) => (
-                  <tr
-                    key={index}
-                    onClick={() => {
-                      handleCustomerClick(row.AccountCode);
-                    }}
-                  >
+                {filteredData.map((row, index) => (
+                  <tr key={index}>
                     <td>{row.Company_Name}</td>
                     <td>{row.Email}</td>
                     <td>{row.Mobile_No}</td>

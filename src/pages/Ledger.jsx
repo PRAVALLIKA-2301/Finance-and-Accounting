@@ -18,63 +18,6 @@ const Ledger = () => {
   const [noTransactions, setNoTransactions] = useState(false);
   const [data, setData] = useState([]);
 
-  // const ledgerData = [
-  //   {
-  //     date: "01-08-2024",
-  //     AccNo: "ACC-102",
-  //     invoiceNo: "INV-001",
-  //     Particulars: "payment to vendor vtsven1002",
-  //     Debit: "20000",
-  //     credit: "-",
-  //     TDS: "0",
-  //     GST: "-75.00",
-  //     Settlement_value: "225000",
-  //   },
-  //   {
-  //     date: "10-08-2024",
-  //     AccNo: "ACC-104",
-  //     invoiceNo: "INV-003",
-  //     Particulars: "payment to vendor vtsven1004",
-  //     Debit: "200000",
-  //     credit: "",
-  //     TDS: "10000",
-  //     GST: "-100.00",
-  //     Settlement_value: "290000",
-  //   },
-  //   {
-  //     date: "15-08-2024",
-  //     AccNo: "ACC-105",
-  //     invoiceNo: "INV-004",
-  //     Particulars: "refund from vendor vtsven1005",
-  //     Debit: "",
-  //     credit: "95000",
-  //     TDS: "4750",
-  //     GST: "-47.50",
-  //     Settlement_value: "137750",
-  //   },
-  //   {
-  //     date: "20-08-2024",
-  //     AccNo: "ACC-106",
-  //     invoiceNo: "INV-005",
-  //     Particulars: "payment to vendor vtsven1006",
-  //     Debit: "130000",
-  //     credit: "",
-  //     TDS: "6500",
-  //     GST: "-65.00",
-  //     Settlement_value: "188500",
-  //   },
-  //   {
-  //     date: "25-08-2024",
-  //     AccNo: "ACC-107",
-  //     invoiceNo: "INV-006",
-  //     Particulars: "refund from vendor vtsven1007",
-  //     Debit: "",
-  //     credit: "75000",
-  //     TDS: "3750",
-  //     GST: "-37.50",
-  //     Settlement_value: "108750",
-  //   },
-  // ];
 
   const handleSearch = (value) => {
     const account = data.find((item) => item.AccNo.endsWith(value));

@@ -10,6 +10,57 @@ import axios from "axios";
 import { MdSearch } from "react-icons/md";
 import VendorTransAll from "../Components/vendorTransAll/vendorTransAll";
 const { Option } = Select;
+const ledgerData = [
+  {
+    vendorName: "ABC Pvt Ltd",
+    GSTNo: "GSTIN1234567890",
+    PAN: "ABCDE1234F",
+    Address: "1234, Elm Street, Springfield, IL, 62704",
+    ContactNo: "9876543210",
+  },
+  {
+    vendorName: "XYZ Corporation",
+    GSTNo: "GSTIN0987654321",
+    PAN: "XYZAB9876C",
+    Address: "5678, Oak Avenue, Gotham, NY, 10001",
+    ContactNo: "8765432109",
+  },
+  {
+    vendorName: "Global Enterprises",
+    GSTNo: "GSTIN1122334455",
+    PAN: "GHJLM9876D",
+    Address: "12, Maple Lane, Metropolis, CA, 90210",
+    ContactNo: "7654321098",
+  },
+  {
+    vendorName: "Innovative Solutions",
+    GSTNo: "GSTIN2233445566",
+    PAN: "MNOPQ1234E",
+    Address: "89, Pine Road, Star City, FL, 33101",
+    ContactNo: "6543210987",
+  },
+  {
+    vendorName: "Tech World Inc.",
+    GSTNo: "GSTIN3344556677",
+    PAN: "QRSTU5678F",
+    Address: "47, Cedar Boulevard, Central City, TX, 75001",
+    ContactNo: "5432109876",
+  },
+  {
+    vendorName: "Alpha Industries",
+    GSTNo: "GSTIN4455667788",
+    PAN: "VWXYZ2345G",
+    Address: "32, Birch Avenue, Coast City, OR, 97301",
+    ContactNo: "4321098765",
+  },
+  {
+    vendorName: "NextGen Technologies",
+    GSTNo: "GSTIN5566778899",
+    PAN: "LMNOP6789H",
+    Address: "58, Redwood Street, Keystone City, WA, 98001",
+    ContactNo: "3210987654",
+  },
+];
 
 const Vendor = () => {
   const [vendorAllTrans, setvendorAllTrans] = useState(false);
@@ -24,8 +75,8 @@ const Vendor = () => {
   const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredData = data.filter((row) => {
-    return row.VendorName.toLowerCase().includes(searchQuery.toLowerCase());
+  const filteredData = ledgerData.filter((row) => {
+    return row.vendorName.toLowerCase().includes(searchQuery.toLowerCase());
   });
 
   const handleRowClick = (row) => {
@@ -61,7 +112,7 @@ const Vendor = () => {
       setData(res.data);
     } catch (error) {
       console.log(error);
-      toast.error("Error while fetching data...", { position: "top-center" });
+      // toast.error("Error while fetching data...", { position: "top-center" });
     }
   };
 
@@ -74,7 +125,7 @@ const Vendor = () => {
       toast.success("Data is added...", { position: "top-center" });
     } catch (error) {
       console.log(error);
-      toast.error("Error while adding the data...", { position: "top-center" });
+      // toast.error("Error while adding the data...", { position: "top-center" });
     }
   };
 
@@ -88,9 +139,9 @@ const Vendor = () => {
       console.log(res.data);
     } catch (error) {
       console.log(error);
-      toast.error("Error while fetching the transaction details...", {
-        position: "top-center",
-      });
+      // toast.error("Error while fetching the transaction details...", {
+      //   position: "top-center",
+      // });
     }
   };
   const handleVendorClick = (ac) => {
@@ -144,9 +195,10 @@ const Vendor = () => {
               <thead>
                 <tr>
                   <th>Vendor Name</th>
-                  <th>Contact Number</th>
-                  <th>Email Address</th>
-                  <th>Billing Address</th>
+                  <th>GST No</th>
+                  <th>PAN no</th>
+                  <th> Address</th>
+                  <th> Contact No</th>
                 </tr>
               </thead>
               <tbody>
@@ -157,10 +209,11 @@ const Vendor = () => {
                       handleVendorClick(row.AccountCode);
                     }}
                   >
-                    <td>{row.VendorName}</td>
-                    <td>{row.ContactNumber}</td>
-                    <td>{row.EmailAddress}</td>
-                    <td>{row.BillingAddress}</td>
+                    <td>{row.vendorName}</td>
+                    <td>{row.GSTNo}</td>
+                    <td>{row.PAN}</td>
+                    <td>{row.Address}</td>
+                    <td>{row.ContactNo}</td>
                   </tr>
                 ))}
               </tbody>
