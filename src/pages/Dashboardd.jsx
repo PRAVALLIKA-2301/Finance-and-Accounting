@@ -1,3 +1,4 @@
+import React, { useState, useEffect, useRef } from "react";
 import "./Dashboard.css";
 import "./Payable.css";
 import Sidebar from "../Components/Dashboard";
@@ -7,25 +8,40 @@ import ProfitLossChart from "../Components/Profitloss";
 import MonthlySummaryChart from "../Components/Monthlysummary";
 import Piechart from "../Components/Piechart";
 import InvoicesBar from "../Components/InvoicesBar";
-import { NavLink } from "react-router-dom";
-
-import { FaRupeeSign } from "react-icons/fa";
-
 import {
-  FaDollarSign,
+  FaRupeeSign,
   FaFileInvoice,
   FaWallet,
   FaUserTie,
+  FaUsers,
 } from "react-icons/fa";
 
 function Dashboardd() {
+  const [view, setView] = useState("vendors"); // State to manage the view
+  const isInitialRender = useRef(true); // Ref to track the initial render
+
+  // Effect to trigger on view change, not on initial render
+  useEffect(() => {
+    if (isInitialRender.current) {
+      isInitialRender.current = false; // Set to false after initial render
+      return; // Skip the effect on the initial render
+    }
+    // Perform actions based on the current view
+    console.log(`Current view: ${view}`);
+    // For example, fetch data or perform other side effects
+  }, [view]);
+
+  // Function to toggle between vendors and customers
+  const toggleView = () => {
+    setView(view === "vendors" ? "customers" : "vendors");
+  };
+
   return (
     <div className="dashboard-container">
       <Sidebar />
 
       <div className="dashboard-content">
         {/* Cards Section */}
-
         <div className="cards-container">
           {/* Payables Card */}
           <div className="card">
@@ -69,18 +85,43 @@ function Dashboardd() {
             </p>
           </div>
 
-          {/* Vendors Card */}
+          {/* Vendors/Customers Card */}
           <div className="card">
-            <div className="icon">
-              <FaUserTie />
+            <div className="header-section">
+              <div className="toggle-container">
+                <FaUserTie
+                  className={`icon ${
+                    view === "vendors" ? "active" : ""
+                  } toggleicons`}
+                />
+                <div className="toggle-slider">
+                  <input
+                    type="checkbox"
+                    id="toggle"
+                    checked={view === "customers"}
+                    onChange={toggleView}
+                    className="toggle-checkbox"
+                  />
+                  <label htmlFor="toggle" className="toggle-label">
+                    <span className="slider"></span>
+                  </label>
+                </div>
+                <FaUsers
+                  className={`icon ${
+                    view === "customers" ? "active" : ""
+                  } toggleicons`}
+                />
+              </div>
             </div>
-            <h3>Vendors</h3>
+
+            <h3>{view === "vendors" ? "Vendors" : "Customers"}</h3>
+
             <p>
-              <span className="detail-label">Active Vendors:</span> 35
+              <span className="detail-label">
+                {view === "vendors" ? "Active Vendors:" : "Active Customers:"}
+              </span>
+              {view === "vendors" ? "35" : "50"}
             </p>
-            {/* <p>
-              <span className="detail-label">Pending Invoices:</span> 10
-            </p> */}
           </div>
         </div>
 
@@ -107,12 +148,10 @@ function Dashboardd() {
             <Piechart />
           </div>
           <div className="chart-section">
-            <h2>Invoices</h2>
+            <h2>Invoices Bar</h2>
             <InvoicesBar />
           </div>
         </div>
-
-        {/*  */}
       </div>
     </div>
   );

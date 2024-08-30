@@ -179,6 +179,10 @@
   margin-top: 0;
 }
 
+.toggleicons {
+  margin-bottom: 0px !important;
+}
+
 .icon {
   font-size: 24px;
   color: #007bff;
@@ -260,11 +264,14 @@ p {
 }
 
 /* Employee cards styling */
-
 .header {
   font-size: 18px;
   color: #333;
   margin-bottom: 10px;
+}
+
+.header-section {
+  margin-bottom: 15px;
 }
 
 .counter {
@@ -306,4 +313,148 @@ p {
 .legend-label {
   font-size: 14px;
   color: #333;
+}
+
+/* Container for icons and toggle switch */
+.toggle-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Icon styles */
+.icon {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.icon.active {
+  color: #007bff; /* Active color */
+}
+
+/* Hide default checkbox */
+.toggle-checkbox {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Label styling for slider */
+.toggle-label {
+  position: relative;
+  display: inline-block;
+  width: 30px !important;
+  height: 17px !important;
+}
+
+/* Slider */
+.toggle-label .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+
+  display: flex;
+  align-items: center;
+}
+
+/* Slider before element */
+.slider:before {
+  content: "";
+  position: absolute;
+  height: 13px !important;
+  width: 13px !important;
+  border-radius: 50%;
+  background: white;
+  transition: 0.4s;
+}
+
+/* Checked state of slider */
+input:checked + .toggle-label .slider {
+  background-color: #007bff;
+}
+
+/* Move slider to the right */
+input:checked + .toggle-label .slider:before {
+  transform: translateX(26px);
+}
+
+/* Container for icons and toggle switch */
+.toggle-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative; /* Ensure toggle is positioned relative to container */
+}
+
+/* Icon styles */
+.icon {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Toggle Switch Container */
+.toggle-slider {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Hide default checkbox */
+.toggle-checkbox {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Label styling for slider */
+.toggle-label {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  margin: 0 10px; /* Add margin to space out from icons */
+}
+
+/* Slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+/* Slider before element */
+.slider:before {
+  content: "";
+  position: absolute;
+  height: 26px;
+  width: 26px;
+  border-radius: 50%;
+  background: white;
+  transition: 0.4s;
+
+  transform: translateX(2px);
+}
+
+/* Checked state of slider */
+.toggle-checkbox:checked + .toggle-label .slider {
+  background-color: #007bff;
+}
+
+/* Move slider to the right */
+.toggle-checkbox:checked + .toggle-label .slider:before {
+  transform: translateX(14px);
 }

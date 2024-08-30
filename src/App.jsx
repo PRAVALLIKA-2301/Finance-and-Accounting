@@ -1,4 +1,3 @@
-// import Dashboard from "./Components/Dashboard.jsx";
 import Payable from "./pages/Payable.jsx";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Receivable from "./pages/Receivable.jsx";
